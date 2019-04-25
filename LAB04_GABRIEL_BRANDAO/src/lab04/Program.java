@@ -28,7 +28,7 @@ public class Program {
 		System.out.print("Curso: ");
 		String curso = sc.nextLine();
 		if (!c.cadastraAluno(matricula, nome, curso)) {
-			System.out.println("Matricula ja cadastrada!");
+			System.out.println("Matricula ja cadastrada!" + System.lineSeparator());
 		}
 		
 		else {
@@ -44,9 +44,27 @@ public class Program {
 		
 		if (c.exibeAluno(matricula) == null) {
 			System.out.println("Aluno nao cadastrado." + System.lineSeparator());
-		}else System.out.println(c.exibeAluno(matricula) + System.lineSeparator());
+		}else System.out.println("Aluno: " + c.exibeAluno(matricula) + System.lineSeparator());
 	}
 	
+	private static void registraResposta() {
+		System.out.println();
+		System.out.print("Matricula: ");
+		String matricula = sc.nextLine();
+		if (c.cadastraAlunoRespondeu(matricula)) {
+			System.out.println("Aluno Registrado!" + System.lineSeparator());
+		}else System.out.println("Aluno nao cadastrado!" + System.lineSeparator());
+	}
+	
+	private static void imprimeResposta() {
+		if (c.exibeAlunosRespondeu().equals("Alunos: " + System.lineSeparator())) {
+			System.out.println("Nenhum aluno respondeu!");
+		}
+		else {
+			System.out.println(c.exibeAlunosRespondeu());
+		}
+		System.out.println();
+	}
 	
 	public static void main(String[] args) {
 		
@@ -62,19 +80,19 @@ public class Program {
 			}
 			
 			else if (opcao.equals("N")) {
-	
+		
 			}
 			
 			else if (opcao.equals("A")) {
 				
 			}
 			
-			else if (opcao.equals("R")) {
-
+			else if (opcao.toUpperCase().equals("R")) {
+				registraResposta();
 			}
 			
-			else if (opcao.equals("I")) {
-
+			else if (opcao.toUpperCase().equals("I")) {
+				imprimeResposta();
 			}
 			
 			else if (opcao.equals("O")) {

@@ -13,6 +13,12 @@ public class Grupo {
 		this.alunos = new HashSet<>();
 	}
 	
+	public String getnomeGrupo() {
+		return this.nomeGrupo;
+	}
 	
+	public String toString() {
+		return "Grupo: " + getnomeGrupo();
+	}
 	
 }

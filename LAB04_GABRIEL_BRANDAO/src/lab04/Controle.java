@@ -1,5 +1,6 @@
 package lab04;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -7,10 +8,13 @@ public class Controle {
 	
 	private HashMap<String, Aluno> alunos;
 	private HashMap<String, Grupo> grupos;
+	private ArrayList<String> alunosResponderam; 
+	
 	
 	public Controle() {
-		this.alunos = new HashMap<String, Aluno>();
+		this.alunos = new HashMap<>();
 		this.grupos = new HashMap<>();
+		this.alunosResponderam = new ArrayList<>();
 	}
 	
 	public boolean cadastraAluno(String matricula, String nome, String curso) {
@@ -19,36 +23,39 @@ public class Controle {
 			Aluno a = new Aluno(matricula, nome, curso);
 			alunos.put(a.getMatricula(), a);
 			return true;
-		}else return false;
+		}return false;
 	}
 
 	public Aluno exibeAluno(String matricula) {
 		return this.alunos.get(matricula);
 	}
 
+	public boolean cadastraAlunoRespondeu(String matricula) {
+		boolean result = false;
+		if (this.alunos.containsKey(matricula)) {
+			alunosResponderam.add(matricula);
+			result = true;
+		}return result;
+	}
 	
-	
-	
-	
+	public String exibeAlunosRespondeu() {
+		String entry = "Alunos: " + System.lineSeparator();
+		String quemRespondeu = "";
+		int contador = 1;
+		for (int i = 0; i < alunosResponderam.size(); i ++) {
+			if(this.alunos.containsKey(alunosResponderam.get(i))) {
+				quemRespondeu += contador + ". " + exibeAluno(alunosResponderam.get(i)) + System.lineSeparator();
+			}contador +=1;
+		}return entry + quemRespondeu;
+		
+	}
 	
 	private void verificaEntradas(String matricula, String nome, String curso) {
-		if (matricula == null) {
-			throw new NullPointerException("Matricula Nula");
+		if (matricula == null || nome == null || curso == null) {
+			throw new NullPointerException("Entrada nula");
 		}
-		if (matricula == "" || matricula.trim().equals("")) {
-			throw new IllegalArgumentException("Matricula vazia");
-		}
-		if (nome == null) {
-			throw new NullPointerException("Nome Nulo");
-		}
-		if (nome == "" || nome.trim().equals("")) {
-			throw new IllegalArgumentException("Nome vazio");
-		}
-		if (curso == null) {
-			throw new NullPointerException("Curso vazio");
-		}
-		if (curso == "" || curso.trim().equals("")) {
-			throw new IllegalArgumentException("Curso vazio");
+		if (matricula == "" || matricula.trim().equals("") || nome == "" || nome.trim().equals("") || curso == "" || curso.trim().equals("")) {
+			throw new IllegalArgumentException("Entrada vazia");
 		}
 	}
 	
