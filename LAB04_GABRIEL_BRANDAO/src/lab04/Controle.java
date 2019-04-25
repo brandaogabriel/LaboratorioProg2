@@ -1,14 +1,16 @@
 package lab04;
 
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class Controle {
 	
-	private Map<String, Aluno> alunos;
+	private HashMap<String, Aluno> alunos;
+	private HashMap<String, Grupo> grupos;
 	
 	public Controle() {
 		this.alunos = new HashMap<String, Aluno>();
+		this.grupos = new HashMap<>();
 	}
 	
 	public boolean cadastraAluno(String matricula, String nome, String curso) {
@@ -23,8 +25,13 @@ public class Controle {
 	public Aluno exibeAluno(String matricula) {
 		return this.alunos.get(matricula);
 	}
+
 	
-	public void verificaEntradas(String matricula, String nome, String curso) {
+	
+	
+	
+	
+	private void verificaEntradas(String matricula, String nome, String curso) {
 		if (matricula == null) {
 			throw new NullPointerException("Matricula Nula");
 		}

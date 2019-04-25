@@ -16,7 +16,7 @@ public class Program {
 		System.out.println("(R)egistrar Aluno que Respondeu");
 		System.out.println("(I)mprimir Alunos que Responderam");
 		System.out.println("(O)ra, vamos fechar o programa!");
-		System.out.print("Opção> ");
+		System.out.print("Opcao> ");
 	}
 	
 	private static void cadastraAluno() {
@@ -47,21 +47,22 @@ public class Program {
 		}else System.out.println(c.exibeAluno(matricula) + System.lineSeparator());
 	}
 	
+	
 	public static void main(String[] args) {
 		
 		menu();
 		do {
 			String opcao = sc.nextLine();
-			if (opcao.equals("C")) {
+			if (opcao.toUpperCase().equals("C")) {
 				cadastraAluno();
 			}
 			
-			else if (opcao.equals("E")) {
+			else if (opcao.toUpperCase().equals("E")) {
 				exibeAluno();
 			}
 			
 			else if (opcao.equals("N")) {
-				
+	
 			}
 			
 			else if (opcao.equals("A")) {
