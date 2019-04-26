@@ -29,6 +29,36 @@ public class Controle {
 	public Aluno exibeAluno(String matricula) {
 		return this.alunos.get(matricula);
 	}
+	
+	public boolean cadastraGrupo(String nomeGrupo) {
+		if (!verificaNomeGrupo(nomeGrupo)) {
+			Grupo g = new Grupo(nomeGrupo);
+			grupos.put(nomeGrupo, g);
+			System.out.println(grupos);
+			return true;
+		}
+		return false;
+	}
+	
+	// PAREI AQUI //
+	public String alocaAluno(String matricula, String nomeGrupo) {
+		if(!this.alunos.containsKey(matricula)) {
+			return "Aluno nao cadastrado!";
+		}
+		if (!verificaNomeGrupo(nomeGrupo)){
+			return "Grupo não cadastrado!";
+		}
+		return "Aluno alocado!"; 
+	}
+	
+	private boolean verificaNomeGrupo(String nomeGrupo) {
+		for (String g : this.grupos.keySet()) {
+			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean cadastraAlunoRespondeu(String matricula) {
 		boolean result = false;
