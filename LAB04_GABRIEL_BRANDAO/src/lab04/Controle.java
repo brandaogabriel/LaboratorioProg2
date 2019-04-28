@@ -18,7 +18,7 @@ public class Controle {
 	}
 	
 	public boolean cadastraAluno(String matricula, String nome, String curso) {
-		verificaEntradas(matricula, nome, curso);
+		validaEntradaCadastro(matricula, nome, curso);
 		if (!this.alunos.containsKey(matricula)) {
 			Aluno a = new Aluno(matricula, nome, curso);
 			alunos.put(a.getMatricula(), a);
@@ -27,10 +27,12 @@ public class Controle {
 	}
 
 	public Aluno exibeAluno(String matricula) {
+		validaEntrada(matricula);
 		return this.alunos.get(matricula);
 	}
 	
 	public boolean cadastraGrupo(String nomeGrupo) {
+		validaEntrada(nomeGrupo);
 		if (!verificaNomeGrupo(nomeGrupo)) {
 			Grupo g = new Grupo(nomeGrupo);
 			grupos.put(nomeGrupo, g);
@@ -40,6 +42,7 @@ public class Controle {
 	}
 	
 	public String alocaAluno(String matricula, String nomeGrupo) {
+		validaAlocaAluno(matricula, nomeGrupo);
 		if(!this.alunos.containsKey(matricula)) {
 			return "Aluno nao cadastrado!";
 		}
@@ -56,6 +59,7 @@ public class Controle {
 	}
 	
 	public String imprimeGrupo(String nomeGrupo) {
+		validaEntrada(nomeGrupo);
 		if (!verificaNomeGrupo(nomeGrupo)) {
 			return "Grupo nao cadastrado!" + System.lineSeparator();
 		}
@@ -80,6 +84,7 @@ public class Controle {
 	}
 
 	public boolean cadastraAlunoRespondeu(String matricula) {
+		validaEntrada(matricula);
 		boolean result = false;
 		if (this.alunos.containsKey(matricula)) {
 			alunosResponderam.add(matricula);
@@ -99,14 +104,32 @@ public class Controle {
 		
 	}
 	
-	private void verificaEntradas(String matricula, String nome, String curso) {
+	private void validaEntradaCadastro(String matricula, String nome, String curso) {
 		if (matricula == null || nome == null || curso == null) {
 			throw new NullPointerException("Entrada nula");
 		}
-		if (matricula == "" || matricula.trim().equals("") || nome == "" || nome.trim().equals("") || curso == "" || curso.trim().equals("")) {
+		if (matricula == "" || matricula.trim().equals("") || nome == "" || nome.trim().equals("") 
+				|| curso == "" || curso.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada vazia");
 		}
 	}
 	
+	private void validaAlocaAluno(String matricula, String nomeGrupo) {
+		if (matricula == null || nomeGrupo == null) {
+			throw new NullPointerException("Entrada nula");
+		}
+		if (matricula == "" || matricula.trim().equals("") || nomeGrupo == "" 
+				|| nomeGrupo.trim().equals("")) {
+			throw new IllegalArgumentException("Entrada vazia");
+		}
+	}
 	
+	private void validaEntrada(String entrada) {
+		if (entrada == null) {
+			throw new NullPointerException("Entrada nula");
+		}
+		if (entrada == "" || entrada.trim().equals("")) {
+			throw new IllegalArgumentException("Entrada vazia");
+		}
+	}
 }

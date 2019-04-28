@@ -29,5 +29,30 @@ public class Grupo {
 	public String toString() {
 		return "Alunos do grupo " + this.nomeGrupo + ":";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nomeGrupo == null) ? 0 : nomeGrupo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grupo other = (Grupo) obj;
+		if (nomeGrupo == null) {
+			if (other.nomeGrupo != null)
+				return false;
+		} else if (!nomeGrupo.equals(other.nomeGrupo))
+			return false;
+		return true;
+	}
 	
 }
