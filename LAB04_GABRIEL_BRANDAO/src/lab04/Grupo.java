@@ -6,19 +6,28 @@ import java.util.HashSet;
 public class Grupo {
 	
 	private String nomeGrupo;
-	private HashSet<Aluno> alunos;
+	private HashSet<Aluno> aluno;
 	
 	public Grupo(String nomeGrupo) {
 		this.nomeGrupo = nomeGrupo;
-		this.alunos = new HashSet<>();
+		this.aluno = new HashSet<>();
 	}
 	
-	public String getnomeGrupo() {
-		return this.nomeGrupo;
+	public void insereAlunoGrupo(Aluno a) {
+		aluno.add(a);
+	}
+	
+	public String getAlunos() {
+		String turminha = "";
+		for (Aluno a : aluno) {
+			turminha += "* " + a + System.lineSeparator();
+		}	
+		return turminha;
+		
 	}
 	
 	public String toString() {
-		return "Grupo: " + getnomeGrupo();
+		return "Alunos do grupo " + this.nomeGrupo + ":";
 	}
 	
 }

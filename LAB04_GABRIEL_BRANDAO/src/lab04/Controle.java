@@ -34,21 +34,41 @@ public class Controle {
 		if (!verificaNomeGrupo(nomeGrupo)) {
 			Grupo g = new Grupo(nomeGrupo);
 			grupos.put(nomeGrupo, g);
-			System.out.println(grupos);
 			return true;
 		}
 		return false;
 	}
 	
-	// PAREI AQUI //
 	public String alocaAluno(String matricula, String nomeGrupo) {
 		if(!this.alunos.containsKey(matricula)) {
 			return "Aluno nao cadastrado!";
 		}
 		if (!verificaNomeGrupo(nomeGrupo)){
-			return "Grupo não cadastrado!";
+			return "Grupo nao cadastrado!";
+		}
+		
+		for (String g : this.grupos.keySet()) {
+			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
+				grupos.get(g).insereAlunoGrupo(exibeAluno(matricula));
+			}
 		}
 		return "Aluno alocado!"; 
+	}
+	
+	public String imprimeGrupo(String nomeGrupo) {
+		if (!verificaNomeGrupo(nomeGrupo)) {
+			return "Grupo nao cadastrado!" + System.lineSeparator();
+		}
+		
+		String inicio = grupos.get(nomeGrupo).toString();
+		String aluno = "";
+		for (String g : grupos.keySet()) {
+			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
+				aluno += grupos.get(g).getAlunos();
+				}	
+			}
+		
+		return inicio + System.lineSeparator() + aluno;
 	}
 	
 	private boolean verificaNomeGrupo(String nomeGrupo) {
@@ -56,8 +76,7 @@ public class Controle {
 			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
 				return true;
 			}
-		}
-		return false;
+		}return false;
 	}
 
 	public boolean cadastraAlunoRespondeu(String matricula) {

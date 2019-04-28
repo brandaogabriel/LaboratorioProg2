@@ -59,7 +59,13 @@ public class Program {
 		String matricula = sc.nextLine();
 		System.out.print("Grupo: ");
 		String grupo = sc.nextLine();
-		System.out.println(c.alocaAluno(matricula, grupo));
+		System.out.println(c.alocaAluno(matricula, grupo) + System.lineSeparator());
+	}
+	
+	private static void imprimeGrupo() {
+		System.out.print("Grupo: ");
+		String grupo = sc.nextLine();
+		System.out.println(c.imprimeGrupo(grupo));
 	}
 	
 	private static void registraResposta() {
@@ -72,7 +78,7 @@ public class Program {
 	
 	private static void imprimeResposta() {
 		if (c.exibeAlunosRespondeu().equals("Alunos: " + System.lineSeparator())) {
-			System.out.println("Nenhum aluno respondeu!");
+			System.out.println("Nenhum aluno respondeu!" + System.lineSeparator());
 		}
 		else {
 			System.out.println(c.exibeAlunosRespondeu() + System.lineSeparator());
@@ -103,7 +109,7 @@ public class Program {
 					alocarAluno();
 				}
 				else if (escolha.toUpperCase().equals("I")) {
-					
+					imprimeGrupo();
 				}
 				else {
 					System.out.println(System.lineSeparator() + 
@@ -119,7 +125,7 @@ public class Program {
 				imprimeResposta();
 			}
 			
-			else if (opcao.equals("O")) {
+			else if (opcao.toUpperCase().equals("O")) {
 				break;
 			}
 			else {
