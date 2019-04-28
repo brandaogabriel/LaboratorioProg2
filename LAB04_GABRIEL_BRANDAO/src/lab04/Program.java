@@ -4,9 +4,6 @@ import java.util.Scanner;
 
 public class Program {
 
-	private static Controle c = new Controle();
-	
-	private static Scanner sc = new Scanner(System.in);
 	
 	private static void menu() {
 		System.out.println("(C)adastrar Aluno");
@@ -19,7 +16,7 @@ public class Program {
 		System.out.print("Opcao> ");
 	}
 	
-	private static void cadastraAluno() {
+	private static void cadastraAluno(Scanner sc, Controle c) {
 		System.out.print(System.lineSeparator() + "Matricula: ");
 		String matricula = sc.nextLine();
 		System.out.print("Nome: ");
@@ -36,7 +33,7 @@ public class Program {
 		}
 	}
 	
-	private static void exibeAluno() {
+	private static void exibeAluno(Scanner sc, Controle c) {
 		System.out.print(System.lineSeparator() + "Matricula: ");
 		String matricula = sc.nextLine();
 		
@@ -45,7 +42,7 @@ public class Program {
 		}else System.out.println("Aluno: " + c.exibeAluno(matricula) + System.lineSeparator());
 	}
 	
-	private static void cadastraGrupo() {
+	private static void cadastraGrupo(Scanner sc, Controle c) {
 		System.out.print(System.lineSeparator() + "Grupo: ");
 		String grupo = sc.nextLine();
 		if(c.cadastraGrupo(grupo)) {
@@ -54,7 +51,7 @@ public class Program {
 		else System.out.println("Grupo ja cadastrado!" + System.lineSeparator());
 	}
 	
-	private static void alocarAluno() {
+	private static void alocarAluno(Scanner sc, Controle c) {
 		System.out.print(System.lineSeparator() + "Matricula: ");
 		String matricula = sc.nextLine();
 		System.out.print("Grupo: ");
@@ -62,13 +59,13 @@ public class Program {
 		System.out.println(c.alocaAluno(matricula, grupo) + System.lineSeparator());
 	}
 	
-	private static void imprimeGrupo() {
+	private static void imprimeGrupo(Scanner sc, Controle c) {
 		System.out.print("Grupo: ");
 		String grupo = sc.nextLine();
 		System.out.println(c.imprimeGrupo(grupo));
 	}
 	
-	private static void registraResposta() {
+	private static void registraResposta(Scanner sc, Controle c) {
 		System.out.print(System.lineSeparator() + "Matricula: ");
 		String matricula = sc.nextLine();
 		if (c.cadastraAlunoRespondeu(matricula)) {
@@ -76,7 +73,7 @@ public class Program {
 		}else System.out.println("Aluno nao cadastrado!" + System.lineSeparator());
 	}
 	
-	private static void imprimeResposta() {
+	private static void imprimeResposta(Scanner sc, Controle c) {
 		if (c.exibeAlunosRespondeu().equals("Alunos: " + System.lineSeparator())) {
 			System.out.println("Nenhum aluno respondeu!" + System.lineSeparator());
 		}
@@ -87,29 +84,32 @@ public class Program {
 	
 	public static void main(String[] args) {
 		
+		Controle c = new Controle();
+		Scanner sc = new Scanner(System.in);
+		
 		menu();
 		do {
 			String opcao = sc.nextLine();
 			if (opcao.toUpperCase().equals("C")) {
-				cadastraAluno();
+				cadastraAluno(sc, c);
 			}
 			
 			else if (opcao.toUpperCase().equals("E")) {
-				exibeAluno();
+				exibeAluno(sc, c);
 			}
 			
 			else if (opcao.toUpperCase().equals("N")) {
-				cadastraGrupo();
+				cadastraGrupo(sc, c);
 			}
 			
 			else if (opcao.toUpperCase().equals("A")) {
 				System.out.print(System.lineSeparator() + "(A)locar Aluno ou (I)mprimir Grupo? ");
 				String escolha = sc.nextLine();
 				if(escolha.toUpperCase().equals("A")) {
-					alocarAluno();
+					alocarAluno(sc, c);
 				}
 				else if (escolha.toUpperCase().equals("I")) {
-					imprimeGrupo();
+					imprimeGrupo(sc, c);
 				}
 				else {
 					System.out.println(System.lineSeparator() + 
@@ -118,11 +118,11 @@ public class Program {
 			}
 			
 			else if (opcao.toUpperCase().equals("R")) {
-				registraResposta();
+				registraResposta(sc, c);
 			}
 			
 			else if (opcao.toUpperCase().equals("I")) {
-				imprimeResposta();
+				imprimeResposta(sc, c);
 			}
 			
 			else if (opcao.toUpperCase().equals("O")) {
