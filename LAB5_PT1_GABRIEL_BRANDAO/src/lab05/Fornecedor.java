@@ -28,6 +28,19 @@ public class Fornecedor {
 		this.telefone = telefone;
 	}
 	
+	public void insereProduto(Produtos p) {
+		produtos.add(p);
+	}
+	
+	public boolean verificaIgual(String nomeProduto, String desc) {
+		for (Produtos p : produtos) {
+			if (p.equals(new Produtos(nomeProduto, desc))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return this.nome + " - " + this.email + " - " + this.telefone;

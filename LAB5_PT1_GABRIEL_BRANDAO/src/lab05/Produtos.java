@@ -12,6 +12,11 @@ public class Produtos {
 		this.preco = preco;
 	}
 	
+	public Produtos(String nome, String descricao) {
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
