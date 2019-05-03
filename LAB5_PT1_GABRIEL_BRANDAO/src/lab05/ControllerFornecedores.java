@@ -7,16 +7,15 @@ public class ControllerFornecedores {
 	private Excecoes valida;
 	private HashMap<String, Fornecedor> fornecedores;
 
-	public ControllerFornecedores(HashMap<String, Fornecedor> fornecedores) {
+	public ControllerFornecedores() {
 		this.fornecedores = new HashMap<>();
 	}
 	
-	public boolean cadastraFornecedor(String nome, String email, String telefone) {
-		boolean result = false;
-		
+	public boolean cadastraFornecedor(String nome, String email, String telefone) {		
 		valida.validaEntrada(nome);
 		valida.validaEntrada(email);
 		valida.validaEntrada(telefone);	
+		boolean result = false;
 		if (!this.fornecedores.containsKey(nome)) {
 			this.fornecedores.put(nome, new Fornecedor(nome, email, telefone));
 			result = true;
