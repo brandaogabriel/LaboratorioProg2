@@ -40,12 +40,50 @@ public class Fornecedor {
 	}
 	
 	public boolean verificaIgual(String nomeProduto, String desc) {
+		valida.validaEntrada(nomeProduto);
+		valida.validaEntrada(desc);
 		for (Produtos p : produtos) {
-			if (p.equals(new Produtos(nomeProduto, desc))) {
+			if (p.getNome() == nomeProduto && p.getDesc() == desc) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public String exibeProduto(String nomeProduto, String desc) {
+		valida.validaEntrada(nomeProduto);
+		valida.validaEntrada(desc);
+		for (Produtos p: produtos) {
+			if (p.getNome() == nomeProduto && p.getDesc() == desc) {
+				return p.toString();
+			}
+		}return "Produto nao cadastrado";
+	}
+	
+	public String exibeProdutos() {
+		return produtos.toString();
+	}
+	
+	public void alteraPreco(String nomeProduto, String desc, double preco) {
+		valida.validaEntrada(nomeProduto);
+		valida.validaEntrada(desc);
+		for (Produtos p : produtos) {
+			if (p.getNome() == nomeProduto && p.getDesc() == desc) {
+				p.setPreco(preco);
+			}
+		}
+	}
+	
+	public boolean removeProduto(String nomeProduto, String desc) {
+		valida.validaEntrada(nomeProduto);
+		valida.validaEntrada(desc);
+		Produtos p = new Produtos(nomeProduto, desc);
+		for (Produtos pp : produtos) {
+			if (pp.equals(p)) {
+				produtos.remove(p);
+				return true;
+			}
+		}return false;
 	}
 	
 	@Override
