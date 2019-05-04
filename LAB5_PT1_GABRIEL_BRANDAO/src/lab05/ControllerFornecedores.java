@@ -9,12 +9,10 @@ public class ControllerFornecedores {
 
 	public ControllerFornecedores() {
 		this.fornecedores = new HashMap<>();
+		this.valida = new Excecoes();
 	}
 	
 	public boolean cadastraFornecedor(String nome, String email, String telefone) {		
-		valida.validaEntrada(nome);
-		valida.validaEntrada(email);
-		valida.validaEntrada(telefone);	
 		boolean result = false;
 		if (!this.fornecedores.containsKey(nome)) {
 			this.fornecedores.put(nome, new Fornecedor(nome, email, telefone));
@@ -35,19 +33,16 @@ public class ControllerFornecedores {
 		String fornecedores = "";
 		for (String f : this.fornecedores.keySet()) {
 			fornecedores += this.fornecedores.get(f).toString() + " | ";
-		}
-		
+		}	
 		return fornecedores;
 	}
 	
 	public boolean alteraDadosFornecedor(String nome, String email, String telefone) {
 		valida.validaEntrada(nome);
-		valida.validaEntrada(email);
-		valida.validaEntrada(telefone);
-		boolean result = false;
-		
+		boolean result = false;	
 		if (this.fornecedores.containsKey(nome)) {
-			this.fornecedores.put(nome, new Fornecedor(nome, email, telefone));
+			this.fornecedores.get(nome).setEmail(email);
+			this.fornecedores.get(nome).setTelefone(telefone);
 			result = true;
 		}	
 		return result;
@@ -77,6 +72,5 @@ public class ControllerFornecedores {
 		}
 		return result;
 	}
-	
 		
 }

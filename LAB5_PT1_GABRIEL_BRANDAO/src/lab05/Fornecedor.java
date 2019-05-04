@@ -8,8 +8,13 @@ public class Fornecedor {
 	private String email;
 	private String telefone;
 	private ArrayList<Produtos> produtos;
+	private Excecoes valida;
 	
 	public Fornecedor(String nome, String email, String telefone) {
+		this.valida = new Excecoes();
+		valida.validaEntrada(nome);
+		valida.validaEntrada(email);
+		valida.validaEntrada(telefone);	
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
@@ -21,10 +26,12 @@ public class Fornecedor {
 	}
 	
 	public void setEmail(String email) {
+		valida.validaEntrada(email);
 		this.email = email;
 	}
 	
 	public void setTelefone(String telefone) {
+		valida.validaEntrada(telefone);
 		this.telefone = telefone;
 	}
 	

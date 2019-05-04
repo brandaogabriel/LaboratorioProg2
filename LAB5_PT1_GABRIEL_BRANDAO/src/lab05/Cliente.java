@@ -6,8 +6,14 @@ public class Cliente {
 	 private String nome;
 	 private String email;
 	 private String localizacao;
+	 private Excecoes valida;
 	
 	 public Cliente(String cpf, String nome, String email, String localizacao){
+		this.valida = new Excecoes();
+		valida.validaEntrada(cpf);
+		valida.validaEntrada(nome);
+		valida.validaEntrada(email);
+		valida.validaEntrada(localizacao);
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
@@ -19,14 +25,17 @@ public class Cliente {
 	 }
 	 
 	 public void setNome(String nome) {
+		 valida.validaEntrada(nome);
 		 this.nome = nome;
 	 }
 	 
 	 public void setEmail(String email) {
+		 valida.validaEntrada(email);
 		 this.email = email;
 	 }
 	 
 	 public void setLocalizacao(String localizacao) {
+		 valida.validaEntrada(localizacao);
 		 this.localizacao = localizacao;
 	 }
 	 

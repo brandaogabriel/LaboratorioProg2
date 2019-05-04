@@ -9,26 +9,21 @@ public class ControllerClientes {
 
 	public ControllerClientes() {
 		this.clientes = new HashMap<>();
+		this.valida = new Excecoes();
 	}
 	
 	public String cadastraCliente(String cpf, String nome, String email, String localizacao){
-		try {
-			valida.validaEntrada(cpf);
-			valida.validaEntrada(nome);
-			valida.validaEntrada(email);
-			valida.validaEntrada(localizacao);
-			if (!this.clientes.containsKey(cpf)) {
-				Cliente c = new Cliente(cpf, nome, email, localizacao);
-				clientes.put(c.getCpf(), c);
-				return c.getCpf();
+		if(!this.clientes.containsKey(cpf)) {
+			try {
+				clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
+				return cpf;			
+			}catch (Exception e) {
+				return e.getMessage();
 			}
-		}
-		catch (Exception e) {
-			return e.getMessage();
 		}
 		return "Cpf ja cadastrado!";
 	}
-	
+	 
 	public String exibeCliente(String cpf) {
 		valida.validaEntrada(cpf);
 		if (clientes.containsKey(cpf)) {
@@ -46,14 +41,12 @@ public class ControllerClientes {
 	}
 	
 	public boolean alteraDados(String cpf, String nome, String email, String localizacao) {
-		valida.validaEntrada(cpf);
-		valida.validaEntrada(nome);
-		valida.validaEntrada(email);
-		valida.validaEntrada(localizacao);
+		valida.validaEntrada(cpf);	
 		boolean result = false;
-		
 		if (this.clientes.containsKey(cpf)) {
-			this.clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
+			this.clientes.get(cpf).setNome(nome);
+			this.clientes.get(cpf).setEmail(email);
+			this.clientes.get(cpf).setLocalizacao(localizacao);
 			result = true;
 		}
 		return result;
