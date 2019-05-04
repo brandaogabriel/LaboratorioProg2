@@ -1,6 +1,9 @@
-package lab05;
+package controllers;
 
 import java.util.HashMap;
+
+import lab05.Cliente;
+import lab05.Excecoes;
 
 public class ControllerClientes {
 	
@@ -40,26 +43,38 @@ public class ControllerClientes {
 		return clientes;
 	}
 	
-	public boolean alteraDados(String cpf, String nome, String email, String localizacao) {
-		valida.validaEntrada(cpf);	
-		boolean result = false;
+	public boolean alteraDadosNome(String cpf, String nome) {
+		valida.validaEntrada(cpf);
+		valida.validaEntrada(nome);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setNome(nome);
-			this.clientes.get(cpf).setEmail(email);
+			return true;
+		}return false;
+	}
+	
+	public boolean alteraDadosEmail(String cpf, String email) {
+		valida.validaEntrada(cpf);
+		valida.validaEntrada(email);
+		if (this.clientes.containsKey(cpf)) {
+			this.clientes.get(cpf).setEmail(email);;
+			return true;
+		}return false;
+	}
+	
+	public boolean alteraDadosTelefone(String cpf, String localizacao) {
+		valida.validaEntrada(cpf);	
+		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setLocalizacao(localizacao);
-			result = true;
-		}
-		return result;
+			return true;
+		}return false;
 	}
 	
 	public boolean removeCliente(String cpf) {
 		valida.validaEntrada(cpf);
-		boolean result = false;
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.remove(cpf);
-			result = true;
-		}						
-		return result; 
+			return true;
+		}return false;
 	}
 	
 }
