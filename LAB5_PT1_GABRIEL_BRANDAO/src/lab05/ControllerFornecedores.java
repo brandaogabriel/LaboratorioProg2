@@ -1,14 +1,14 @@
 package lab05;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ControllerFornecedores {
 
 	private Excecoes valida;
-	private HashMap<String, Fornecedor> fornecedores;
+	private LinkedHashMap<String, Fornecedor> fornecedores;
 
 	public ControllerFornecedores() {
-		this.fornecedores = new HashMap<>();
+		this.fornecedores = new LinkedHashMap<>();
 		this.valida = new Excecoes();
 	}
 	
@@ -80,7 +80,7 @@ public class ControllerFornecedores {
 		
 		if (this.fornecedores.containsKey(nomeFornecedor)) {
 			if (this.fornecedores.get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-				return this.fornecedores.get(nomeFornecedor).exibeProduto(nomeProduto, desc);
+				return this.fornecedores.get(nomeFornecedor).exibeUmProduto(nomeProduto, desc);
 			}return "Produto nao cadastrado";
 		}return "Fornecedor nao cadastrado";
 	}
@@ -91,7 +91,7 @@ public class ControllerFornecedores {
 		if(this.fornecedores.containsKey(nomeFornecedor)) {
 			for (String p: this.fornecedores.keySet()) {
 				if (p.equals(nomeFornecedor)) {
-					produtos += nomeFornecedor + " - " + this.fornecedores.get(p).exibeProdutos() + " | ";
+					produtos = this.fornecedores.get(p).exibeTodosProdutosUmFornecedor(nomeFornecedor);
 				}
 			}
 		}
@@ -103,7 +103,7 @@ public class ControllerFornecedores {
 		String produtos = "";
 	
 		for (String p : this.fornecedores.keySet()) {
-			produtos += p + " - " + this.fornecedores.get(p).exibeProdutos() + " | ";
+			produtos += this.fornecedores.get(p).exibeTodosProdutosUmFornecedor(p);
 		}
 		
 		return produtos;

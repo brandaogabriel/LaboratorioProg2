@@ -43,32 +43,38 @@ public class Fornecedor {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		for (Produtos p : produtos) {
-			if (p.getNome() == nomeProduto && p.getDesc() == desc) {
+			if (p.equals(new Produtos(nomeProduto, desc))) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public String exibeProduto(String nomeProduto, String desc) {
+	public String exibeUmProduto(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		for (Produtos p: produtos) {
-			if (p.getNome() == nomeProduto && p.getDesc() == desc) {
+			if (p.equals(new Produtos(nomeProduto, desc))) {
 				return p.toString();
 			}
 		}return "Produto nao cadastrado";
 	}
 	
-	public String exibeProdutos() {
-		return produtos.toString();
+	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
+		String itens = "";
+		for (Produtos p : this.produtos) {
+			itens += nomeFornecedor + " - " +  p.toString() + " | ";
+		}
+		return itens;
 	}
+	
+	
 	
 	public void alteraPreco(String nomeProduto, String desc, double preco) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		for (Produtos p : produtos) {
-			if (p.getNome() == nomeProduto && p.getDesc() == desc) {
+			if (p.equals(new Produtos(nomeProduto, desc))) {
 				p.setPreco(preco);
 			}
 		}

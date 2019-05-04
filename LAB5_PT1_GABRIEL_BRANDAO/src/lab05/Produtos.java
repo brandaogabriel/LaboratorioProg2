@@ -17,14 +17,6 @@ public class Produtos {
 		this.descricao = descricao;
 	}
 	
-	public String getNome() {
-		return this.getNome();
-	}
-
-	public String getDesc() {
-		return this.getDesc();
-	}
-	
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
