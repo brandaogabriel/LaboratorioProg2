@@ -61,14 +61,13 @@ public class Fornecedor {
 	}
 	
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
+		valida.validaEntrada(nomeFornecedor);
 		String itens = "";
 		for (Produtos p : this.produtos) {
 			itens += nomeFornecedor + " - " +  p.toString() + " | ";
 		}
 		return itens;
 	}
-	
-	
 	
 	public void alteraPreco(String nomeProduto, String desc, double preco) {
 		valida.validaEntrada(nomeProduto);
