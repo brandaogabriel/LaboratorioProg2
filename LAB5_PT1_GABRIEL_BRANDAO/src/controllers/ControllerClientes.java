@@ -18,6 +18,9 @@ public class ControllerClientes {
 	public String cadastraCliente(String cpf, String nome, String email, String localizacao){
 		if(!this.clientes.containsKey(cpf)) {
 			try {
+				valida.validaEntrada(nome);
+				valida.validaEntrada(email);
+				valida.validaEntrada(localizacao);
 				clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
 				return cpf;			
 			}catch (Exception e) {
@@ -43,38 +46,38 @@ public class ControllerClientes {
 		return clientes;
 	}
 	
-	public boolean alteraDadosNome(String cpf, String nome) {
+	public String alteraDadosNome(String cpf, String nome) {
 		valida.validaEntrada(cpf);
 		valida.validaEntrada(nome);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setNome(nome);
-			return true;
-		}return false;
+			return "Nome alterado com sucesso";
+		}return "Cpf nao cadastrado";
 	}
 	
-	public boolean alteraDadosEmail(String cpf, String email) {
+	public String alteraDadosEmail(String cpf, String email) {
 		valida.validaEntrada(cpf);
 		valida.validaEntrada(email);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setEmail(email);;
-			return true;
-		}return false;
+			return "Email alterado com sucesso";
+		}return "Cpf nao cadastrado";
 	}
 	
-	public boolean alteraDadosTelefone(String cpf, String localizacao) {
+	public String alteraDadosLocalizacao(String cpf, String localizacao) {
 		valida.validaEntrada(cpf);	
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setLocalizacao(localizacao);
-			return true;
-		}return false;
+			return "Localizacao alterada com sucesso";
+		}return "Cpf nao cadastrado";
 	}
 	
-	public boolean removeCliente(String cpf) {
+	public String removeCliente(String cpf) {
 		valida.validaEntrada(cpf);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.remove(cpf);
-			return true;
-		}return false;
+			return "Cliente removido";
+		}return "Cliente nao cadastrado";
 	}
 	
 }
