@@ -13,16 +13,16 @@ public class ControllerProdutos {
 		this.valida = new Excecoes();
 	}
 	
-	public boolean cadastraProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
+	public String cadastraProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
 			if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
 				this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(new Produtos(nomeProduto, desc, preco));
-				return true;
-			}
-		}return false;
+				return "Produto cadastrado com sucesso";
+			}return "O produto ja existe para o fornecedor solicitado";
+		}return "Fornecedor nao cadastrado";
 	}
 	
 	public String exibeProduto(String nomeFornecedor, String nomeProduto, String desc) {
@@ -84,7 +84,5 @@ public class ControllerProdutos {
 			}return "Produto nao cadastrado";
 		}return "Fornecedor nao cadastrado";
 	}
-			
-	
 	
 }

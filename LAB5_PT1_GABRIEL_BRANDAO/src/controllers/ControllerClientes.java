@@ -16,17 +16,14 @@ public class ControllerClientes {
 	}
 	
 	public String cadastraCliente(String cpf, String nome, String email, String localizacao){
+		valida.validaEntrada(cpf);
+		valida.validaEntrada(nome);
+		valida.validaEntrada(email);
+		valida.validaEntrada(localizacao);
 		if(!this.clientes.containsKey(cpf)) {
-			try {
-				valida.validaEntrada(nome);
-				valida.validaEntrada(email);
-				valida.validaEntrada(localizacao);
-				clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
-				return cpf;			
-			}catch (Exception e) {
-				return e.getMessage();
+			clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
+			return cpf;			
 			}
-		}
 		return "Cpf ja cadastrado!";
 	}
 	 

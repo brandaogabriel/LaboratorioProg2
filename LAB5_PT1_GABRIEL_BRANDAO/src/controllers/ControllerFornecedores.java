@@ -15,13 +15,12 @@ public class ControllerFornecedores {
 		this.valida = new Excecoes();
 	}
 	
-	public boolean cadastraFornecedor(String nome, String email, String telefone) {		
-		boolean result = false;
+	public String cadastraFornecedor(String nome, String email, String telefone) {		
 		if (!this.fornecedores.containsKey(nome)) {
 			this.fornecedores.put(nome, new Fornecedor(nome, email, telefone));
-			result = true;
+			return "Fornecedor cadastrado com sucesso";
 		}
-		return result;
+		return "Fornecedor ja cadastrado";
 	}
 	
 	public String exibeFornecedor(String nome) {
@@ -39,30 +38,30 @@ public class ControllerFornecedores {
 		}return fornecedores;
 	}
 	
-	public boolean alteraDadosEmailFornecedor(String nome, String email) {
+	public String alteraDadosEmailFornecedor(String nome, String email) {
 		valida.validaEntrada(nome);
 		valida.validaEntrada(email);
 		if(this.fornecedores.containsKey(nome)) {
 			this.fornecedores.get(nome).setEmail(email);
-			return true;
-		}return false;	
+			return "Email alterado com sucesso";
+		}return "Fornecedor nao cadastrado";	
 	}
 	
-	public boolean alteraDadosTelefoneFornecedor(String nome, String telefone) {
+	public String alteraDadosTelefoneFornecedor(String nome, String telefone) {
 		valida.validaEntrada(nome);
 		valida.validaEntrada(telefone);
 		if (this.fornecedores.containsKey(nome)) {
 			this.fornecedores.get(nome).setTelefone(telefone);
-			return true;
-		}return false;
+			return "Telefone alterado com sucesso";
+		}return "Fornecedor nao cadastrado";
 	}
 	
-	public boolean removeFornecedor(String nome) {
+	public String removeFornecedor(String nome) {
 		valida.validaEntrada(nome);	
 		if (this.fornecedores.containsKey(nome)) {
 			this.fornecedores.remove(nome);
-			return true;
-		}return false;
+			return "Fornecedor removido com sucesso";
+		}return "Fornecedor nao cadastrado";
 	}
 	
 	public LinkedHashMap<String, Fornecedor> getfornecedores() {
