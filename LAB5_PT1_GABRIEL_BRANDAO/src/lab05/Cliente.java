@@ -1,13 +1,46 @@
 package lab05;
 
+/**
+ * Representacao de um cliente em um estabelecimento comercial. O cliente por sua vez
+ * eh identificado pelo cpf, mas também possui nome, email e 
+ * uma localizacao (area de trabalho). 
+ */
+
+
 public class Cliente {
-	
+	/**
+	 * Representa o cpf de um cliente
+	 */
 	 private String cpf;
+	 
+	 /**
+	  * Representa o nome de um cliente
+	  */
 	 private String nome;
+	 
+	 /**
+	  * Representa o email de um cliente
+	  */
 	 private String email;
+	 
+	 /**
+	  * Representa a localizacao de um cliente
+	  */
 	 private String localizacao;
+	 
+	 /**
+	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
+	  * de dados de entrada
+	  */
 	 private Excecoes valida;
 	
+	 /**
+	  * Constroi um cliente a partir de seu cpf, nome, email e localizacao.
+	  * @param cpf recebe o cpf do cliente no formato String
+	  * @param nome recebe o nome do cliente no formato String
+	  * @param email recebe o email do cliente no formato String
+	  * @param localizacao recebe a localizacao do cliente no formato String
+	  */
 	 public Cliente(String cpf, String nome, String email, String localizacao){
 		this.valida = new Excecoes();
 		valida.validaEntrada(cpf);
@@ -19,31 +52,48 @@ public class Cliente {
 		this.email = email;
 		this.localizacao = localizacao;
 	}
-	
-	 public String getCpf() {
-		 return this.cpf;
-	 }
 	 
-	 public void setNome(String nome) {
+	/**
+	 * Altera o nome de um cliente
+	 * @param nome recebe o novo nome do cliente no formato String
+	 */
+	public void setNome(String nome) {
 		 valida.validaEntrada(nome);
 		 this.nome = nome;
 	 }
-	 
-	 public void setEmail(String email) {
+	
+	/**
+	 * Altera o email de um cliente 
+	 * @param email recebe o novo email do cliente no formato String
+	 */
+	public void setEmail(String email) {
 		 valida.validaEntrada(email);
 		 this.email = email;
 	 }
 	 
-	 public void setLocalizacao(String localizacao) {
+	/**
+	 * Altera a localizacao de um cliente
+	 * @param localizacao recebe a nova localizacao no formato String
+	 */
+	public void setLocalizacao(String localizacao) {
 		 valida.validaEntrada(localizacao);
 		 this.localizacao = localizacao;
 	 }
-	 
-	 @Override
-	 public String toString() {
-		 return this.nome + " - " + this.email + " - " + this.localizacao; 
+	
+	/**
+	 * Retorna a String que representa um cliente no sistema.
+	 * No formato NNNN - LLLLL - EEEEE, onde 'N' representa o nome do cliente,
+	 * 'L' representa a localizacao do cliente e 'E' representa o email do cliente.
+	 */
+	@Override
+	public String toString() {
+		 return this.nome + " - " + this.localizacao + " - " + this.email; 
 	 }
-
+	
+	/**
+	 * Retorna um numero inteiro que representa um codigo que eh gerado 
+	 * a partir das informacoes do objeto Cliente. 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -52,6 +102,11 @@ public class Cliente {
 		return result;
 	}
 
+	/**
+	 * O metodo compara se um objeto eh igual ao outro, retornando true ou false.
+	 * No caso em questao ele ira verificar se o cpf de um cliente eh igual ao cpf
+	 * de outro cliente. Caso seja, retornara true, caso contrario, retornara false.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,7 +123,5 @@ public class Cliente {
 			return false;
 		return true;
 	}
-	 
-	 
 	 
 }
