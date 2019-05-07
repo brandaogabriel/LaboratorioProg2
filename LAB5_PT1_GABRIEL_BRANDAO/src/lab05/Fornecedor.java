@@ -91,7 +91,7 @@ public class Fornecedor {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		for (Produtos p : produtos) {
-			if (p.equals(new Produtos(nomeProduto, desc))) {
+			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
 				return true;
 			}
 		}
@@ -109,7 +109,7 @@ public class Fornecedor {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		for (Produtos p: produtos) {
-			if (p.equals(new Produtos(nomeProduto, desc))) {
+			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
 				return p.toString();
 			}
 		}return "Produto nao cadastrado";
@@ -139,7 +139,7 @@ public class Fornecedor {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		for (Produtos p : produtos) {
-			if (p.equals(new Produtos(nomeProduto, desc))) {
+			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
 				p.setPreco(preco);
 			}
 		}
@@ -155,9 +155,8 @@ public class Fornecedor {
 	public boolean removeProduto(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		Produtos p = new Produtos(nomeProduto, desc);
-		for (Produtos pp : produtos) {
-			if (pp.equals(p)) {
+		for (Produtos p : produtos) {
+			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
 				produtos.remove(p);
 				return true;
 			}

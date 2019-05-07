@@ -35,15 +35,19 @@ public class Produtos {
 	}
 	
 	/**
-	 * Constroi um produto a partir de seu nome e descricao.
-	 * Esse construtor serve apenas de respaldo para comparar se dois produtos sao iguais
-	 * dentro de uma lista a partir do nome e descricao. 
-	 * @param nome recebe o nome do produto
-	 * @param descricao recebe a descricao do produto
+	 * O metodo verifica o nome de um produto
+	 * @return o nome desse produto.
 	 */
-	public Produtos(String nome, String descricao) {
-		this.nome = nome;
-		this.descricao = descricao;
+	public String getNome() {
+		return this.nome;
+	}
+	
+	/**
+	 * O metodo verifica a descricao de um produto
+	 * @return a descricao desse produto
+	 */
+	public String getDescricao() {
+		return this.descricao;
 	}
 	
 	/**
