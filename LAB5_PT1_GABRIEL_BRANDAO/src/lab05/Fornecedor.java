@@ -1,6 +1,6 @@
 package lab05;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Representacao de um fornecedor de um determinado estabelicimento que eh resposavel
@@ -26,10 +26,10 @@ public class Fornecedor {
 	private String telefone;
 	
 	/**
-	 * Representa uma lista do tipo Produto que contem todos os produtos
-	 * de um fornecedor
+	 * Representacao dos produtos de um fornecedor atraves de um mapa.
+	 * A chave eh o nome do produto e a descricao, o valor eh o Produto.
 	 */
-	private ArrayList<Produtos> produtos;
+	private LinkedHashMap<String,Produtos> produtos;
 	
 	/**
 	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
@@ -51,7 +51,7 @@ public class Fornecedor {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		this.produtos = new ArrayList<>();
+		this.produtos = new LinkedHashMap<>();
 	}
 	
 	/**
@@ -73,33 +73,33 @@ public class Fornecedor {
 	}
 	
 	/**
-	 * O metodo insere um produto na lista de produtos do fornecedor
-	 * @param p recebe um objeto do tipo Produto
+	 * O metodo insere um produto com chave e valor dentro do mapa. A chave eh a concatenacao
+	 * do nome do produto e descricao. O valor eh o nome do produto, descricao e o preco.
+	 * @param nomeProduto recebe o nome do produto
+	 * @param desc recebe a descricao do produto
+	 * @param preco recebe o preco do produto
 	 */
-	public void insereProduto(Produtos p) {
-		produtos.add(p);
+	public void insereProduto(String nomeProduto, String desc, double preco) {
+		produtos.put(nomeProduto + desc, new Produtos(nomeProduto, desc, preco));
 	}
 	
 	/**
 	 * O metodo verifica se dois produtos sao iguais a partir do seu nome e descricao
-	 * @param nomeProduto recebe o nome do produto a ser comparado
-	 * @param desc recebe a descricao do produto a ser comparada 
-	 * @return caso o produto passado como parametro nao esteja dentro da lista, sera 
-	 * retornado false. Caso o produto ja exista na lista, sera retornado true.
+	 * @param nomeProduto recebe o nome do produto a ser verificado
+	 * @param desc recebe a descricao do produto a ser verificada.
+	 * @return caso o produto passado como parametro nao esteja dentro do mapa, sera 
+	 * retornado false. Caso o produto ja exista no mapa, sera retornado true.
 	 */
 	public boolean verificaIgual(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		for (Produtos p : produtos) {
-			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
-				return true;
-			}
-		}
-		return false;
+		if(produtos.containsKey(nomeProduto + desc)) {
+			return true;
+		}return false;
 	}
 	
 	/**
-	 * O metodo exibe um produto existente dentro da lista.
+	 * O metodo exibe um produto existente dentro do mapa.
 	 * @param nomeProduto recebe o nome de um produto
 	 * @param desc recebe a descricao de um produto
 	 * @return Caso o produto exista sera retornado no seu formato toString. Caso contrario, 
@@ -108,10 +108,8 @@ public class Fornecedor {
 	public String exibeUmProduto(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		for (Produtos p: produtos) {
-			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
-				return p.toString();
-			}
+		if(produtos.containsKey(nomeProduto + desc)) {
+			return produtos.get(nomeProduto + desc).toString();
 		}return "Produto nao cadastrado";
 	}
 	
@@ -123,8 +121,8 @@ public class Fornecedor {
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
 		valida.validaEntrada(nomeFornecedor);
 		String itens = "";
-		for (Produtos p : this.produtos) {
-			itens += nomeFornecedor + " - " +  p.toString() + " | ";
+		for (String p : this.produtos.keySet()) {
+			itens += nomeFornecedor + " - " +  produtos.get(p).toString() + " | ";
 		}
 		return itens;
 	}
@@ -138,28 +136,24 @@ public class Fornecedor {
 	public void alteraPreco(String nomeProduto, String desc, double preco) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		for (Produtos p : produtos) {
-			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
-				p.setPreco(preco);
-			}
+		if (produtos.containsKey(nomeProduto + desc)) {
+			produtos.get(nomeProduto + desc).setPreco(preco);
 		}
 	}
 	
 	/**
-	 * O metodo remove um produto da lista de produtos
+	 * O metodo remove um produto do mapa de produtos
 	 * @param nomeProduto recebe o nome do produto
 	 * @param desc recebe a descricao do produto
-	 * @return Se o produto existir na lista, entao sua remocao eh feita e eh retornado true.
+	 * @return Se o produto existir no mapa, entao sua remocao eh feita e eh retornado true.
 	 * Caso contrario, sera retornado false, pois o produto nao existe para ser removido.
 	 */
 	public boolean removeProduto(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		for (Produtos p : produtos) {
-			if (p.getNome().equals(nomeProduto) && p.getDescricao().equals(desc)) {
-				produtos.remove(p);
-				return true;
-			}
+		if(produtos.containsKey(nomeProduto + desc)) {
+			produtos.remove(nomeProduto + desc);
+			return true;
 		}return false;
 	}
 	

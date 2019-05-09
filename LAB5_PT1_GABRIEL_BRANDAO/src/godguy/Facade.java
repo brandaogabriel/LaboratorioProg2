@@ -84,8 +84,8 @@ public class Facade {
 		return this.produtos.exibeProdutosFornecedores();
 	}
 	
-	public String editaProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
-		return this.produtos.editaProduto(nomeFornecedor, nomeProduto, desc, preco);
+	public String alteraPrecoProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
+		return this.produtos.alteraPrecoProduto(nomeFornecedor, nomeProduto, desc, preco);
 	}
 	
 	public String removeProduto(String nomeFornecedor, String nomeProduto, String desc) {

@@ -1,7 +1,6 @@
 package controllers;
 
 import lab05.Excecoes;
-import lab05.Produtos;
 
 public class ControllerProdutos {
 	
@@ -19,7 +18,7 @@ public class ControllerProdutos {
 		valida.validaEntrada(desc);
 		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
 			if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-				this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(new Produtos(nomeProduto, desc, preco));
+				this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(nomeProduto, desc, preco);
 				return "Produto cadastrado com sucesso";
 			}return "O produto ja existe para o fornecedor solicitado";
 		}return "Fornecedor nao cadastrado";
@@ -29,7 +28,6 @@ public class ControllerProdutos {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		
 		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
 			if (this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
 				return this.fornecedores.getfornecedores().get(nomeFornecedor).exibeUmProduto(nomeProduto, desc);
@@ -41,25 +39,19 @@ public class ControllerProdutos {
 		valida.validaEntrada(nomeFornecedor);
 		String produtos = "";
 		if(this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			for (String p: this.fornecedores.getfornecedores().keySet()) {
-				if (p.equals(nomeFornecedor)) {
-					produtos = this.fornecedores.getfornecedores().get(p).exibeTodosProdutosUmFornecedor(nomeFornecedor);
-				}
-			}
-		}
-		return produtos;
+			produtos = this.fornecedores.getfornecedores().get(nomeFornecedor).exibeTodosProdutosUmFornecedor(nomeFornecedor);
+		}return produtos;
 	}
 		
 	public String exibeProdutosFornecedores() {
 		String produtos = "";
-	
 		for (String p : this.fornecedores.getfornecedores().keySet()) {
 			produtos += this.fornecedores.getfornecedores().get(p).exibeTodosProdutosUmFornecedor(p);
 		}	
 		return produtos;
 	}
 	
-	public String editaProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
+	public String alteraPrecoProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
