@@ -17,11 +17,24 @@ public class Excecoes {
 	 * que ele digitou uma entrada vazia.
 	 */
 	public void validaEntrada(String entrada) {
-		if (entrada.equals(null)) {
+		if (entrada == null) {
 			throw new NullPointerException("Entrada nula");
 		}
 		if (entrada.equals("") || entrada.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada vazia");
+		}
+	}
+	
+	/**
+	 * O metodo verifica se o parametro repassado no formato double eh valida.
+	 * @param preco recebe um preco a ser verificado.
+	 * @throws IllegalArgumentException se o preco passado como parametro for 
+	 * menor que 0 entao a excecao eh lancada pois nao existe valor negativo para um
+	 * preco
+	 */
+	public void verificaValorProduto(double preco) {
+		if (preco < 0.0) {
+			throw new IllegalArgumentException("Preco negativo");
 		}
 	}
 	

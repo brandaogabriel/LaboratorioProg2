@@ -16,6 +16,7 @@ public class ControllerProdutos {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
+		valida.verificaValorProduto(preco);
 		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
 			if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
 				this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(nomeProduto, desc, preco);
@@ -55,7 +56,7 @@ public class ControllerProdutos {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		
+		valida.verificaValorProduto(preco);
 		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
 			if (this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
 				this.fornecedores.getfornecedores().get(nomeFornecedor).alteraPreco(nomeProduto, desc, preco);

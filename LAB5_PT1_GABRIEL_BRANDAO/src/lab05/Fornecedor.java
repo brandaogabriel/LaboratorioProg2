@@ -136,6 +136,7 @@ public class Fornecedor {
 	public void alteraPreco(String nomeProduto, String desc, double preco) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
+		valida.verificaValorProduto(preco);
 		if (produtos.containsKey(nomeProduto + desc)) {
 			produtos.get(nomeProduto + desc).setPreco(preco);
 		}

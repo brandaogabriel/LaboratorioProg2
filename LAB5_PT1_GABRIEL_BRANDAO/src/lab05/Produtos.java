@@ -23,12 +23,22 @@ public class Produtos {
 	private double preco;
 	
 	/**
+	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
+	  * de dados de entrada
+	  */
+	private Excecoes valida;
+	
+	/**
 	 * Constroi um produto a partir de seu nome, descricao e preco
 	 * @param nome recebe o nome do produto
 	 * @param descricao recebe a descricao do produto
 	 * @param preco recebe o preco do produto
 	 */
 	public Produtos(String nome, String descricao, double preco) {
+		this.valida = new Excecoes();
+		valida.validaEntrada(nome);
+		valida.validaEntrada(descricao);
+		valida.verificaValorProduto(preco);
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -55,6 +65,7 @@ public class Produtos {
 	 * @param preco recebe o novo preco
 	 */
 	public void setPreco(double preco) {
+		valida.verificaValorProduto(preco);
 		this.preco = preco;
 	}
 	
