@@ -16,24 +16,28 @@ public class ControllerProdutos {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		valida.verificaValorProduto(preco);
-		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-				this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(nomeProduto, desc, preco);
-				return "Produto cadastrado com sucesso";
-			}return "O produto ja existe para o fornecedor solicitado";
-		}return "Fornecedor nao cadastrado";
+		valida.verificaValorProduto(preco);	
+		if(!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
+			return "Fornecedor nao cadastrado";
+		}
+		if(this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
+			return "O produto ja existe para o fornecedor solicitado";
+		}
+		this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(nomeProduto, desc, preco);
+		return "Produto cadastrado com sucesso";
 	}
 	
 	public String exibeProduto(String nomeFornecedor, String nomeProduto, String desc) {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
-		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			if (this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-				return this.fornecedores.getfornecedores().get(nomeFornecedor).exibeUmProduto(nomeProduto, desc);
-			}return "Produto nao cadastrado";
-		}return "Fornecedor nao cadastrado";
+		valida.validaEntrada(desc);	
+		if (!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
+			return "Fornecedor nao cadastrado";
+		}
+		if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
+			return "Produto nao cadastrado";
+		}
+		return this.fornecedores.getfornecedores().get(nomeFornecedor).exibeUmProduto(nomeProduto, desc);
 	}
 	
 	public String exibeProdutosUmFornecedor(String nomeFornecedor) {
@@ -57,25 +61,28 @@ public class ControllerProdutos {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		valida.verificaValorProduto(preco);
-		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			if (this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-				this.fornecedores.getfornecedores().get(nomeFornecedor).alteraPreco(nomeProduto, desc, preco);
-				return "Preco alterado com sucesso";
-			}return "Produto nao cadastrado";
-		}return "Fornecedor nao cadastrado";
+		if (!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
+			return "Fornecedor nao cadastrado";
+		}
+		if (!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
+			return "Produto nao cadastrado";
+		}
+		this.fornecedores.getfornecedores().get(nomeFornecedor).alteraPreco(nomeProduto, desc, preco);
+		return "Preco alterado com sucesso";
 	}
 	
 	public String removeProduto(String nomeFornecedor, String nomeProduto, String desc) {
 		valida.validaEntrada(nomeFornecedor);
 		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
-		
-		if (this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			if (this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-				this.fornecedores.getfornecedores().get(nomeFornecedor).removeProduto(nomeProduto, desc);
-				return "Produto removido do fornecedor";
-			}return "Produto nao cadastrado";
-		}return "Fornecedor nao cadastrado";
+		valida.validaEntrada(desc);	
+		if(!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
+			return "Fornecedor nao cadastrado";
+		}
+		if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
+			return "Produto nao cadastrado";
+		}
+		this.fornecedores.getfornecedores().get(nomeFornecedor).removeProduto(nomeProduto, desc);
+		return "Produto removido com sucesso";
 	}
 	
 }

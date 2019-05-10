@@ -16,15 +16,12 @@ public class ControllerClientes {
 	}
 	
 	public String cadastraCliente(String cpf, String nome, String email, String localizacao){
-		valida.validaEntrada(cpf);
-		valida.validaEntrada(nome);
-		valida.validaEntrada(email);
-		valida.validaEntrada(localizacao);
+		valida.validaCadastroCliente(cpf, nome, email, localizacao);
 		if(!this.clientes.containsKey(cpf)) {
 			clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
 			return cpf;			
 			}
-		return "Cpf ja cadastrado!";
+		throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
 	}
 	 
 	public String exibeCliente(String cpf) {
@@ -32,7 +29,7 @@ public class ControllerClientes {
 		if (clientes.containsKey(cpf)) {
 			return clientes.get(cpf).toString();
 		}
-		return "Cliente nao cadastrado";
+		throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
 	}
 	
 	public String exibeTodos() {
@@ -43,30 +40,44 @@ public class ControllerClientes {
 		return clientes;
 	}
 	
-	public String alteraDadosNome(String cpf, String nome) {
+	public void editaCliente(String cpf, String atributo, String novoValor) {
+		if (!this.clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro na edicao do cliente: cliente nao existe.");
+		}
+		valida.validaEditaCliente(atributo, novoValor);
+		if (atributo.equals("nome")) {
+			alteraDadosNome(cpf, novoValor);
+		}
+		if (atributo.equals("email")) {
+			alteraDadosEmail(cpf, novoValor);
+		}
+		if(atributo.equals("localizacao")) {
+			alteraDadosLocalizacao(cpf, novoValor);
+		}
+	}
+	
+	public void alteraDadosNome(String cpf, String nome) {
 		valida.validaEntrada(cpf);
 		valida.validaEntrada(nome);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setNome(nome);
-			return "Nome alterado com sucesso";
-		}return "Cpf nao cadastrado";
+		}
 	}
 	
-	public String alteraDadosEmail(String cpf, String email) {
+	public void alteraDadosEmail(String cpf, String email) {
 		valida.validaEntrada(cpf);
 		valida.validaEntrada(email);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setEmail(email);;
-			return "Email alterado com sucesso";
-		}return "Cpf nao cadastrado";
+			
+		}
 	}
 	
-	public String alteraDadosLocalizacao(String cpf, String localizacao) {
+	public void alteraDadosLocalizacao(String cpf, String localizacao) {
 		valida.validaEntrada(cpf);	
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setLocalizacao(localizacao);
-			return "Localizacao alterada com sucesso";
-		}return "Cpf nao cadastrado";
+		}
 	}
 	
 	public String removeCliente(String cpf) {

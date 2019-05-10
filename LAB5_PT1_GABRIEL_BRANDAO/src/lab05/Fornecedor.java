@@ -80,7 +80,8 @@ public class Fornecedor {
 	 * @param preco recebe o preco do produto
 	 */
 	public void insereProduto(String nomeProduto, String desc, double preco) {
-		produtos.put(nomeProduto + desc, new Produtos(nomeProduto, desc, preco));
+		String chave = nomeProduto + " " + desc;
+		produtos.put(chave, new Produtos(nomeProduto, desc, preco));
 	}
 	
 	/**
@@ -93,7 +94,8 @@ public class Fornecedor {
 	public boolean verificaIgual(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		if(produtos.containsKey(nomeProduto + desc)) {
+		String chave = nomeProduto + " " + desc;
+		if(produtos.containsKey(chave)) {
 			return true;
 		}return false;
 	}
@@ -108,8 +110,9 @@ public class Fornecedor {
 	public String exibeUmProduto(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		if(produtos.containsKey(nomeProduto + desc)) {
-			return produtos.get(nomeProduto + desc).toString();
+		String chave = nomeProduto + " " + desc;
+		if(produtos.containsKey(chave)) {
+			return produtos.get(chave).toString();
 		}return "Produto nao cadastrado";
 	}
 	
@@ -137,8 +140,9 @@ public class Fornecedor {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
 		valida.verificaValorProduto(preco);
-		if (produtos.containsKey(nomeProduto + desc)) {
-			produtos.get(nomeProduto + desc).setPreco(preco);
+		String chave = nomeProduto + " " + desc;
+		if (produtos.containsKey(chave)) {
+			produtos.get(chave).setPreco(preco);
 		}
 	}
 	
@@ -152,8 +156,9 @@ public class Fornecedor {
 	public boolean removeProduto(String nomeProduto, String desc) {
 		valida.validaEntrada(nomeProduto);
 		valida.validaEntrada(desc);
-		if(produtos.containsKey(nomeProduto + desc)) {
-			produtos.remove(nomeProduto + desc);
+		String chave = nomeProduto + " " + desc;
+		if(produtos.containsKey(chave)) {
+			produtos.remove(chave);
 			return true;
 		}return false;
 	}

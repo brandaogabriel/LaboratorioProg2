@@ -43,10 +43,7 @@ public class Cliente {
 	  */
 	 public Cliente(String cpf, String nome, String email, String localizacao){
 		this.valida = new Excecoes();
-		valida.validaEntrada(cpf);
-		valida.validaEntrada(nome);
-		valida.validaEntrada(email);
-		valida.validaEntrada(localizacao);
+		valida.validaCadastroCliente(cpf, nome, email, localizacao);
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;

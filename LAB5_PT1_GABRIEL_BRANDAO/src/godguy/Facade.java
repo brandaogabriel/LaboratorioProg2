@@ -3,6 +3,7 @@ package godguy;
 import controllers.ControllerClientes;
 import controllers.ControllerFornecedores;
 import controllers.ControllerProdutos;
+import easyaccept.EasyAccept;
 
 public class Facade {
 	
@@ -16,7 +17,12 @@ public class Facade {
 		this.produtos = new ControllerProdutos(fornecedores);
 	}
 	
-	public String cadastraCliente(String cpf, String nome, String email, String localizacao) {
+	public static void main(String[] args) {
+		args = new String[] {"godguy.Facade", "acceptance_test/use_case_1.txt"};
+		EasyAccept.main(args);
+	}
+	
+	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
 		return this.clientes.cadastraCliente(cpf, nome, email, localizacao);
 	}
 	
@@ -28,16 +34,8 @@ public class Facade {
 		return this.clientes.exibeTodos();
 	}
 	
-	public String alteraNomeCliente(String cpf, String nome) {
-		return this.clientes.alteraDadosNome(cpf, nome);
-	}
-	
-	public String alteraEmailCliente(String cpf, String email) {
-		return this.clientes.alteraDadosEmail(cpf, email);
-	}
-	
-	public String alteraTelefoneCliente(String cpf, String localizacao) {
-		return this.clientes.alteraDadosLocalizacao(cpf, localizacao);
+	public void editaCliente(String cpf, String atributo, String novoValor) {
+		this.clientes.editaCliente(cpf, atributo, novoValor);
 	}
 	
 	public String removeCliente(String cpf) {
