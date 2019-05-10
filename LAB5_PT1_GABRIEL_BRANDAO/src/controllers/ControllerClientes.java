@@ -25,7 +25,6 @@ public class ControllerClientes {
 	}
 	 
 	public String exibeCliente(String cpf) {
-		valida.validaEntrada(cpf);
 		if (clientes.containsKey(cpf)) {
 			return clientes.get(cpf).toString();
 		}
@@ -57,31 +56,25 @@ public class ControllerClientes {
 	}
 	
 	public void alteraDadosNome(String cpf, String nome) {
-		valida.validaEntrada(cpf);
-		valida.validaEntrada(nome);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setNome(nome);
 		}
 	}
 	
 	public void alteraDadosEmail(String cpf, String email) {
-		valida.validaEntrada(cpf);
-		valida.validaEntrada(email);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setEmail(email);;
 			
 		}
 	}
 	
-	public void alteraDadosLocalizacao(String cpf, String localizacao) {
-		valida.validaEntrada(cpf);	
+	public void alteraDadosLocalizacao(String cpf, String localizacao) {	
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setLocalizacao(localizacao);
 		}
 	}
 	
 	public String removeCliente(String cpf) {
-		valida.validaEntrada(cpf);
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.remove(cpf);
 			return "Cliente removido";

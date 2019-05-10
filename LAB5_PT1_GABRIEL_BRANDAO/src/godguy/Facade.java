@@ -18,7 +18,7 @@ public class Facade {
 	}
 	
 	public static void main(String[] args) {
-		args = new String[] {"godguy.Facade", "acceptance_test/use_case_1.txt"};
+		args = new String[] {"godguy.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt", "acceptance_test/use_case_3.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -42,7 +42,7 @@ public class Facade {
 		return this.clientes.removeCliente(cpf);
 	}
 	
-	public String cadastraFornecedor(String nome, String email, String telefone) {
+	public String adicionaFornecedor(String nome, String email, String telefone) {
 		return this.fornecedores.cadastraFornecedor(nome, email, telefone);
 	}
 	
@@ -54,19 +54,15 @@ public class Facade {
 		return this.fornecedores.exibeTodosFornecedores();
 	}
 	
-	public String alteraDadosEmailFornecedor(String nome, String email) {
-		return this.fornecedores.alteraDadosEmailFornecedor(nome, email);
+	public void editaFornecedor(String nome, String atributo, String novoValor) {
+		this.fornecedores.editaFornecedor(nome, atributo, novoValor);
 	}
 	
-	public String alteraDadosTelefoneFornecedor(String nome, String telefone) {
-		return this.fornecedores.alteraDadosTelefoneFornecedor(nome, telefone);
+	public void removeFornecedor(String nome) {
+		this.fornecedores.removeFornecedor(nome);
 	}
 	
-	public String removeFornecedor(String nome) {
-		return this.fornecedores.removeFornecedor(nome);
-	}
-	
-	public String cadastraProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
+	public String adicionaProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
 		return this.produtos.cadastraProduto(nomeFornecedor, nomeProduto, desc, preco);
 	}
 	

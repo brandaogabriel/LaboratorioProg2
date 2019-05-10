@@ -38,6 +38,21 @@ public class Excecoes {
 		}
 	}
 	
+	public void validaCadastroCliente(String cpf, String nome, String email, String localizacao) {
+		if(cpf == null || cpf.length() < 11 || cpf.length() > 11) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
+		}
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		}
+		if (email == null || email.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		}
+		if (localizacao == null || localizacao.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		}
+	}
+	
 	/**
 	 * O metodo verifica se as entradas para edicao de um cliente sao validas.
 	 * @param atributo recebe o tipo de atributo que deseja se editar. Nome, email ou localizacao. 
@@ -58,40 +73,27 @@ public class Excecoes {
 		}
 	}
 	
-	/**
-	 * O metodo verifica se as entrada para cadastro de um cliente sao validas.
-	 * @param cpf recebe o cpf de um cliente 
-	 * @param nome recebe o nome de um cliente
-	 * @param email recebe o email de um cliente
-	 * @param localizacao recebe a localizacao de um cliente
-	 * @throws IllegalArgumentException se o cpf for menor que 11 digitos ou maior, se nome, email ou localizacao forem
-	 * strings vazias entao a excecao eh lancada.
-	 * @throws NullPointerException se o cpf, nome, email ou locazalicao forem strings nulas, entao a excecao eh lancada. 
-	 */
-	public void validaCadastroCliente(String cpf, String nome, String email, String localizacao) {
-		if(cpf == null) {
-			throw new NullPointerException("Erro no cadastro do cliente: cpf invalido.");
+	public void validaCadastoFornecedor(String nome, String email, String telefone) {
+		if(nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
 		}
-		if(cpf.length() < 11 || cpf.length() > 11) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
+		if(email == null || email.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.");
 		}
-		if (nome == null) {
-			throw new NullPointerException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		if(telefone == null || telefone.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.");
 		}
-		if (nome.equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+	} 
+	
+	public void validaEditaFornecedor(String atributo, String novoValor) {
+		if(atributo == null || atributo.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.");
 		}
-		if (email == null) {
-			throw new NullPointerException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		if(novoValor == null || novoValor.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.");
 		}
-		if (email.equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
-		}
-		if (localizacao == null) {
-			throw new NullPointerException("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
-		}
-		if (localizacao.equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		if(!(atributo.equals("email")) && !(atributo.equals("telefone"))) {
+			throw new IllegalArgumentException("Erro na edicao do fornecedor: atributo nao existe.");
 		}
 	}
 }

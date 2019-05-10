@@ -103,23 +103,23 @@ class ClienteTest {
 	void testEntradasNulas() {
 		try {
 			new Cliente(null, "Gabriel", "gabriel@ccc", "splab");
-		}catch (NullPointerException npe) {
-			assertEquals("Erro no cadastro do cliente: cpf invalido.", npe.getMessage());
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro no cadastro do cliente: cpf invalido.", iae.getMessage());
 		}
 		try {
 			new Cliente("11122233344", null, "gabriel@ccc", "splab");
-		}catch (NullPointerException npe) {
-			assertEquals("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.", npe.getMessage());
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.", iae.getMessage());
 		}
 		try {
 			new Cliente("11122233344", "Gabriel", null, "splab");
-		}catch (NullPointerException npe) {
-			assertEquals("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.", npe.getMessage());
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.", iae.getMessage());
 		}
 		try {
 			new Cliente("11122233344", "Gabriel", "gabriel@ccc", null);
-		}catch (NullPointerException npe) {
-			assertEquals("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", npe.getMessage());
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", iae.getMessage());
 		}
 		try {
 			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");

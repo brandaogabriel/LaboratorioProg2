@@ -45,9 +45,7 @@ public class Fornecedor {
 	 */
 	public Fornecedor(String nome, String email, String telefone) {
 		this.valida = new Excecoes();
-		valida.validaEntrada(nome);
-		valida.validaEntrada(email);
-		valida.validaEntrada(telefone);	
+		this.valida.validaCadastoFornecedor(nome, email, telefone);
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
