@@ -12,9 +12,9 @@ class ClienteTest {
 	
 	@BeforeEach
 	void setUp() {
-		this.cliente1 = new Cliente("1111", "Gabriel", "gabriel@ccc",
+		this.cliente1 = new Cliente("11122233344", "Gabriel", "gabriel@ccc",
 				"splab");
-		this.cliente2 = new Cliente("2222", "Joaozinho", "joaozinho@ccc",
+		this.cliente2 = new Cliente("33344455566", "Joaozinho", "joaozinho@ccc",
 				"embedded");
 	}
 
@@ -51,7 +51,7 @@ class ClienteTest {
 	
 	@Test
 	void testClientesIguais() {
-		Cliente cliente3 = new Cliente("1111", "Marcos", "marcos@ccc", "18");
+		Cliente cliente3 = new Cliente("11122233344", "Marcos", "marcos@ccc", "18");
 		assertEquals(cliente1.hashCode(),cliente3.hashCode());
 		assertTrue(cliente1.equals(cliente3));
 		assertFalse(cliente1.equals(cliente2));
@@ -62,37 +62,37 @@ class ClienteTest {
 		try {
 			new Cliente("", "Gabriel", "gabriel@ccc", "splab");
 		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
+			assertEquals("Erro no cadastro do cliente: cpf invalido.", iae.getMessage());
 		}
 		try {
-			new Cliente("1111", "", "gabriel@ccc", "splab");
+			new Cliente("11122233344", "", "gabriel@ccc", "splab");
 		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
+			assertEquals("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.", iae.getMessage());
 		}
 		try {
-			new Cliente("1111", "Gabriel", "", "splab");
+			new Cliente("11122233344", "Gabriel", "", "splab");
 		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
+			assertEquals("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.", iae.getMessage());
 		}
 		try {
-			new Cliente("1111", "Gabriel", "gabriel@ccc", "");
+			new Cliente("11122233344", "Gabriel", "gabriel@ccc", "");
 		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
+			assertEquals("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", iae.getMessage());
 		}
 		try {
-			Cliente c = new Cliente("1111", "Gabriel", "gabriel@ccc", "splab");
+			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
 			c.setNome("");
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Entrada vazia", iae.getMessage());
 		}
 		try {
-			Cliente c = new Cliente("", "Gabriel", "gabriel@ccc", "splab");
+			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
 			c.setEmail("");
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Entrada vazia", iae.getMessage());
 		}
 		try {
-			Cliente c = new Cliente("", "Gabriel", "gabriel@ccc", "splab");
+			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
 			c.setLocalizacao("");
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Entrada vazia", iae.getMessage());
@@ -104,37 +104,37 @@ class ClienteTest {
 		try {
 			new Cliente(null, "Gabriel", "gabriel@ccc", "splab");
 		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
+			assertEquals("Erro no cadastro do cliente: cpf invalido.", npe.getMessage());
 		}
 		try {
-			new Cliente("1111", null, "gabriel@ccc", "splab");
+			new Cliente("11122233344", null, "gabriel@ccc", "splab");
 		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
+			assertEquals("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.", npe.getMessage());
 		}
 		try {
-			new Cliente("1111", "Gabriel", null, "splab");
+			new Cliente("11122233344", "Gabriel", null, "splab");
 		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
+			assertEquals("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.", npe.getMessage());
 		}
 		try {
-			new Cliente("1111", "Gabriel", "gabriel@ccc", null);
+			new Cliente("11122233344", "Gabriel", "gabriel@ccc", null);
 		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
+			assertEquals("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", npe.getMessage());
 		}
 		try {
-			Cliente c = new Cliente("1111", "Gabriel", "gabriel@ccc", "splab");
+			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
 			c.setNome(null);
 		}catch (NullPointerException npe) {
 			assertEquals("Entrada nula", npe.getMessage());
 		}
 		try {
-			Cliente c = new Cliente("1111", "Gabriel", "gabriel@ccc", "splab");
+			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
 			c.setEmail(null); 
 		}catch (NullPointerException npe) {
 			assertEquals("Entrada nula", npe.getMessage());
 		}
 		try {
-			Cliente c = new Cliente("1111", "Gabriel", "gabriel@ccc", "splab");
+			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
 			c.setLocalizacao(null);
 		}catch (NullPointerException npe) {
 			assertEquals("Entrada nula", npe.getMessage());
