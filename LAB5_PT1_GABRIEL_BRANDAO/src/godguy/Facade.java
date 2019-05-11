@@ -5,10 +5,13 @@ import controllers.ControllerFornecedores;
 import controllers.ControllerProdutos;
 import easyaccept.EasyAccept;
 
+
 public class Facade {
-	
+
 	private ControllerClientes clientes;
+	
 	private ControllerFornecedores fornecedores;
+	
 	private ControllerProdutos produtos;
 	
 	public Facade() {
@@ -17,6 +20,7 @@ public class Facade {
 		this.produtos = new ControllerProdutos(fornecedores);
 	}
 	
+
 	public static void main(String[] args) {
 		args = new String[] {"godguy.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt", "acceptance_test/use_case_3.txt"};
 		EasyAccept.main(args);
@@ -58,8 +62,8 @@ public class Facade {
 		this.fornecedores.editaFornecedor(nome, atributo, novoValor);
 	}
 	
-	public void removeFornecedor(String nome) {
-		this.fornecedores.removeFornecedor(nome);
+	public String removeFornecedor(String nome) {
+		return this.fornecedores.removeFornecedor(nome);
 	}
 	
 	public String adicionaProduto(String fornecedor, String nome, String descricao, double preco) {

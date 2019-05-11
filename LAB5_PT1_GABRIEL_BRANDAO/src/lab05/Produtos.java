@@ -50,6 +50,11 @@ public class Produtos {
 		this.preco = preco;
 	}
 	
+	/**
+	 * O metodo formata o valor de um produto acrescentano uma cada decimal
+	 * e trocando o '.' (ponto) pela ',' (virgula).
+	 * @return o preco formatado.
+	 */
 	public String toStringPreco() {
 		String s = String.format("%.2f", this.preco);
 		s.replaceAll(".", ",");

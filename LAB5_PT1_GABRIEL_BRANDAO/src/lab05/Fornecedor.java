@@ -128,11 +128,12 @@ public class Fornecedor {
 	 * @param desc recebe a descricao de um produto
 	 * @param preco recebe o novo preco a ser alterado
 	 */
-	public void alteraPreco(String nomeProduto, String desc, double preco) {
+	public boolean alteraPreco(String nomeProduto, String desc, double preco) {
 		String chave = nomeProduto + " " + desc;
 		if (produtos.containsKey(chave)) {
 			produtos.get(chave).setPreco(preco);
 		}
+		return true;
 	}
 	
 	/**

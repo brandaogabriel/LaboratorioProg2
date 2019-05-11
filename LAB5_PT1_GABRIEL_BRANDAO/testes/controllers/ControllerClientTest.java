@@ -24,7 +24,7 @@ class ControllerClientTest {
 		assertEquals("Gabriel - embedded - gabriel@ccc",c1.exibeCliente("99988877766"));
 		assertEquals("Junior - splab - juinim@ccc", c2.exibeCliente("11122233344"));
 	}
-	
+	 
 	@Test
 	void testExibeTodosClientes() {
 		this.c1.cadastraCliente("90908765432", "Carlos", "carlos@fm", "ufcg");
@@ -101,7 +101,7 @@ class ControllerClientTest {
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Erro na edicao do cliente: atributo nao existe.", iae.getMessage());
 		}
-	}
+	} 
 	
 	@Test
 	void testEntradaNula() {
