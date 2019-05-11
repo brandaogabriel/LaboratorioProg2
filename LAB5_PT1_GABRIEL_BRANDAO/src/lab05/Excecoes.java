@@ -40,10 +40,10 @@ public class Excecoes {
 	 * @throws IllegalArgumentException caso o atributo nao seja nome, email ou localizacao a excecao eh lancada.
 	 */
 	public void validaEditaCliente(String atributo, String novoValor) {
-		if (atributo.equals("") || atributo == null) {
+		if (atributo == null || atributo.equals("")) {
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
 		}
-		if (novoValor.equals("") || novoValor == null) {
+		if (novoValor == null || novoValor.equals("")) {
 			throw new IllegalArgumentException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
 		}
 		if (!(atributo.equals("nome")) && !(atributo.equals("email")) && !(atributo.equals("localizacao"))) {
