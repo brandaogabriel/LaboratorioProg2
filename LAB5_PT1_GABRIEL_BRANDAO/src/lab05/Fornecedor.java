@@ -57,7 +57,6 @@ public class Fornecedor {
 	 * @param email recebe o novo email do fornecedor
 	 */
 	public void setEmail(String email) {
-		valida.validaEntrada(email);
 		this.email = email;
 	}
 	
@@ -66,7 +65,6 @@ public class Fornecedor {
 	 * @param telefone recebe o novo telefone do fornecedor
 	 */
 	public void setTelefone(String telefone) {
-		valida.validaEntrada(telefone);
 		this.telefone = telefone;
 	}
 	
@@ -77,7 +75,8 @@ public class Fornecedor {
 	 * @param desc recebe a descricao do produto
 	 * @param preco recebe o preco do produto
 	 */
-	public void insereProduto(String nomeProduto, String desc, double preco) {
+	public void cadastraProduto(String nomeProduto, String desc, double preco) {
+		valida.validaCadastroProduto(nomeProduto, desc, preco);
 		String chave = nomeProduto + " " + desc;
 		produtos.put(chave, new Produtos(nomeProduto, desc, preco));
 	}
@@ -90,8 +89,6 @@ public class Fornecedor {
 	 * retornado false. Caso o produto ja exista no mapa, sera retornado true.
 	 */
 	public boolean verificaIgual(String nomeProduto, String desc) {
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
 		String chave = nomeProduto + " " + desc;
 		if(produtos.containsKey(chave)) {
 			return true;
@@ -106,8 +103,6 @@ public class Fornecedor {
 	 * sera retornado que o produto nao esta cadastrado.
 	 */
 	public String exibeUmProduto(String nomeProduto, String desc) {
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
 		String chave = nomeProduto + " " + desc;
 		if(produtos.containsKey(chave)) {
 			return produtos.get(chave).toString();
@@ -120,7 +115,6 @@ public class Fornecedor {
 	 * @return todos os produtos.
 	 */
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
-		valida.validaEntrada(nomeFornecedor);
 		String itens = "";
 		for (String p : this.produtos.keySet()) {
 			itens += nomeFornecedor + " - " +  produtos.get(p).toString() + " | ";
@@ -135,9 +129,6 @@ public class Fornecedor {
 	 * @param preco recebe o novo preco a ser alterado
 	 */
 	public void alteraPreco(String nomeProduto, String desc, double preco) {
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
-		valida.verificaValorProduto(preco);
 		String chave = nomeProduto + " " + desc;
 		if (produtos.containsKey(chave)) {
 			produtos.get(chave).setPreco(preco);
@@ -151,9 +142,7 @@ public class Fornecedor {
 	 * @return Se o produto existir no mapa, entao sua remocao eh feita e eh retornado true.
 	 * Caso contrario, sera retornado false, pois o produto nao existe para ser removido.
 	 */
-	public boolean removeProduto(String nomeProduto, String desc) {
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
+	public boolean removeProduto(String nomeProduto, String desc) {;
 		String chave = nomeProduto + " " + desc;
 		if(produtos.containsKey(chave)) {
 			produtos.remove(chave);

@@ -55,7 +55,6 @@ public class Cliente {
 	 * @param nome recebe o novo nome do cliente no formato String
 	 */
 	public void setNome(String nome) {
-		 valida.validaEntrada(nome);
 		 this.nome = nome;
 	 }
 	
@@ -64,7 +63,7 @@ public class Cliente {
 	 * @param email recebe o novo email do cliente no formato String
 	 */
 	public void setEmail(String email) {
-		 valida.validaEntrada(email);
+
 		 this.email = email;
 	 }
 	 
@@ -73,7 +72,6 @@ public class Cliente {
 	 * @param localizacao recebe a nova localizacao no formato String
 	 */
 	public void setLocalizacao(String localizacao) {
-		 valida.validaEntrada(localizacao);
 		 this.localizacao = localizacao;
 	 }
 	

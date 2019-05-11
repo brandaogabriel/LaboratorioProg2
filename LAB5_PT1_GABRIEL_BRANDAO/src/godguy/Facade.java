@@ -25,7 +25,7 @@ public class Facade {
 	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
 		return this.clientes.cadastraCliente(cpf, nome, email, localizacao);
 	}
-	
+	 
 	public String exibeCliente(String cpf) {
 		return this.clientes.exibeCliente(cpf);
 	}
@@ -62,28 +62,28 @@ public class Facade {
 		this.fornecedores.removeFornecedor(nome);
 	}
 	
-	public String adicionaProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
-		return this.produtos.cadastraProduto(nomeFornecedor, nomeProduto, desc, preco);
+	public String adicionaProduto(String fornecedor, String nome, String descricao, double preco) {
+		return this.produtos.cadastraProduto(fornecedor, nome, descricao, preco);
 	}
 	
-	public String exibeProduto(String nomeFornecedor, String nomeProduto, String desc) {
-		return this.produtos.exibeProduto(nomeFornecedor, nomeProduto, desc);
+	public String exibeProduto(String nome,String descricao, String fornecedor) {
+		return this.produtos.exibeProduto(nome, descricao, fornecedor);
 	}
 	
-	public String exibeProdutosUmFornecedor(String nomeFornecedor) {
-		return this.produtos.exibeProdutosUmFornecedor(nomeFornecedor);
+	public String exibeProdutosUmFornecedor(String fornecedor) {
+		return this.produtos.exibeProdutosUmFornecedor(fornecedor);
 	}
 	
 	public String exibeProdutosFornecedores() {
 		return this.produtos.exibeProdutosFornecedores();
 	}
 	
-	public String alteraPrecoProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
-		return this.produtos.alteraPrecoProduto(nomeFornecedor, nomeProduto, desc, preco);
+	public String editaProduto(String nome, String descricao,String fornecedor, double novoPreco) {
+		return this.produtos.alteraPrecoProduto(nome, descricao, fornecedor, novoPreco);
 	}
 	
-	public String removeProduto(String nomeFornecedor, String nomeProduto, String desc) {
-		return this.produtos.removeProduto(nomeFornecedor, nomeProduto, desc);
+	public String removeProduto(String nome, String descricao, String fornecedor) {
+		return this.produtos.removeProduto(nome, descricao, fornecedor);
 	}
 	
 }

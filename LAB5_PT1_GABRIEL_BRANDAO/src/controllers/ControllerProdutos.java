@@ -13,35 +13,33 @@ public class ControllerProdutos {
 	}
 	
 	public String cadastraProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
-		valida.validaEntrada(nomeFornecedor);
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
-		valida.verificaValorProduto(preco);	
+		if(nomeFornecedor == null || nomeFornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
+		}	
+		valida.validaCadastroProduto(nomeProduto, desc, preco);
 		if(!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			return "Fornecedor nao cadastrado";
+			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
 		}
 		if(this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-			return "O produto ja existe para o fornecedor solicitado";
+			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
-		this.fornecedores.getfornecedores().get(nomeFornecedor).insereProduto(nomeProduto, desc, preco);
+		this.fornecedores.getfornecedores().get(nomeFornecedor).cadastraProduto(nomeProduto, desc, preco);
 		return "Produto cadastrado com sucesso";
 	}
 	
-	public String exibeProduto(String nomeFornecedor, String nomeProduto, String desc) {
-		valida.validaEntrada(nomeFornecedor);
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);	
-		if (!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			return "Fornecedor nao cadastrado";
+	public String exibeProduto(String nome, String descricao, String fornecedor) {
+		valida.validaExibeProduto(nome, descricao, fornecedor);
+		if (!this.fornecedores.getfornecedores().containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 		}
-		if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-			return "Produto nao cadastrado";
+		if(!this.fornecedores.getfornecedores().get(fornecedor).verificaIgual(nome, descricao)) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
-		return this.fornecedores.getfornecedores().get(nomeFornecedor).exibeUmProduto(nomeProduto, desc);
+		
+		return this.fornecedores.getfornecedores().get(fornecedor).exibeUmProduto(nome, descricao);
 	}
 	
 	public String exibeProdutosUmFornecedor(String nomeFornecedor) {
-		valida.validaEntrada(nomeFornecedor);
 		String produtos = "";
 		if(this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
 			produtos = this.fornecedores.getfornecedores().get(nomeFornecedor).exibeTodosProdutosUmFornecedor(nomeFornecedor);
@@ -56,32 +54,27 @@ public class ControllerProdutos {
 		return produtos;
 	}
 	
-	public String alteraPrecoProduto(String nomeFornecedor, String nomeProduto, String desc, double preco) {
-		valida.validaEntrada(nomeFornecedor);
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);
-		valida.verificaValorProduto(preco);
-		if (!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			return "Fornecedor nao cadastrado";
+	public String alteraPrecoProduto(String nome, String descricao, String fornecedor, double novoPreco) {
+		valida.validaEditaProduto(nome, descricao, fornecedor, novoPreco);
+		if (!this.fornecedores.getfornecedores().containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na edicao de produto: fornecedor nao existe.");
 		}
-		if (!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
+		if (!this.fornecedores.getfornecedores().get(fornecedor).verificaIgual(nome, descricao)) {
 			return "Produto nao cadastrado";
 		}
-		this.fornecedores.getfornecedores().get(nomeFornecedor).alteraPreco(nomeProduto, desc, preco);
+		this.fornecedores.getfornecedores().get(fornecedor).alteraPreco(nome, descricao, novoPreco);
 		return "Preco alterado com sucesso";
 	}
 	
-	public String removeProduto(String nomeFornecedor, String nomeProduto, String desc) {
-		valida.validaEntrada(nomeFornecedor);
-		valida.validaEntrada(nomeProduto);
-		valida.validaEntrada(desc);	
-		if(!this.fornecedores.getfornecedores().containsKey(nomeFornecedor)) {
-			return "Fornecedor nao cadastrado";
+	public String removeProduto(String nome, String descricao, String fornecedor) {	
+		valida.validaRemoveProduto(nome, descricao, fornecedor);
+		if(!this.fornecedores.getfornecedores().containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
 		}
-		if(!this.fornecedores.getfornecedores().get(nomeFornecedor).verificaIgual(nomeProduto, desc)) {
-			return "Produto nao cadastrado";
+		if(!this.fornecedores.getfornecedores().get(fornecedor).verificaIgual(nome, descricao)) {
+			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
-		this.fornecedores.getfornecedores().get(nomeFornecedor).removeProduto(nomeProduto, desc);
+		this.fornecedores.getfornecedores().get(fornecedor).removeProduto(nome, descricao);
 		return "Produto removido com sucesso";
 	}
 	

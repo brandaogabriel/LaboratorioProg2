@@ -8,36 +8,14 @@ package lab05;
 public class Excecoes {
 	
 	/**
-	 * O metodo verifica se o parametro repassado no formato String eh valido.
-	 * @param entrada recebe uma entrada do tipo String. 
-	 * @throws NullPointerException se a entrada passada como parametro for nula 
-	 * sera lancada a excecao e entao informado ao usuario que ele digitou uma entrada invalida.
-	 * @throws IllegalArgumentException se a entrada passada como parametro for uma String vazia
-	 * ou uma String composta de espacos sera lancada a excecao e entao informado ao usuario
-	 * que ele digitou uma entrada vazia.
+	 * O metodo valida as entradas para cadastro de um cliente
+	 * @param cpf do cliente
+	 * @param nome do cliente
+	 * @param email do cliente
+	 * @param localizacao do cliente
+	 * @throws IllegalArgumentException Caso o cpf, nome, email ou localizacao sejam nulas ou strings vazias, entao
+	 * a excecao eh lancada indicando em qual parametro ocorreu o erro.
 	 */
-	public void validaEntrada(String entrada) {
-		if (entrada == null) {
-			throw new NullPointerException("Entrada nula");
-		}
-		if (entrada.equals("") || entrada.trim().equals("")) {
-			throw new IllegalArgumentException("Entrada vazia");
-		}
-	}
-	
-	/**
-	 * O metodo verifica se o parametro repassado no formato double eh valida.
-	 * @param preco recebe um preco a ser verificado.
-	 * @throws IllegalArgumentException se o preco passado como parametro for 
-	 * menor que 0 entao a excecao eh lancada pois nao existe valor negativo para um
-	 * preco
-	 */
-	public void verificaValorProduto(double preco) {
-		if (preco < 0.0) {
-			throw new IllegalArgumentException("Preco negativo");
-		}
-	}
-	
 	public void validaCadastroCliente(String cpf, String nome, String email, String localizacao) {
 		if(cpf == null || cpf.length() < 11 || cpf.length() > 11) {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
@@ -73,6 +51,14 @@ public class Excecoes {
 		}
 	}
 	
+	/**
+	 * O metodo valida as entradas para cadastro de um fornecedor
+	 * @param nome do fornecedor
+	 * @param email do fornecedor
+	 * @param telefone do fornecedor
+	 * @throws IllegalArgumentException Caso o nome, email ou telefone sejam nulas ou strings vazia, entoa
+	 * a excecao eh lancada indicando em qual parametro ocorreu o erro. 
+	 */
 	public void validaCadastoFornecedor(String nome, String email, String telefone) {
 		if(nome == null || nome.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
@@ -85,6 +71,13 @@ public class Excecoes {
 		}
 	} 
 	
+	/**
+	 * O metodo valida os parametros para edicao de um fornecedor
+	 * @param atributo parametro do tipo string a ser avaliado.
+	 * @param novoValor parametro do tipo string a ser avaliado.
+	 * @throws IllegalArgumentException Caso o atributo ou o novoValor sejam nulos ou string vazias, então a excecao
+	 * eh lancada indicando em qual parametro ocorreu o erro.
+	 */
 	public void validaEditaFornecedor(String atributo, String novoValor) {
 		if(atributo == null || atributo.equals("")) {
 			throw new IllegalArgumentException("Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.");
@@ -94,6 +87,91 @@ public class Excecoes {
 		}
 		if(!(atributo.equals("email")) && !(atributo.equals("telefone"))) {
 			throw new IllegalArgumentException("Erro na edicao do fornecedor: atributo nao existe.");
+		}	
+	}
+	
+	/**
+	 * O metodo valida os parametros para o cadastro de um produto
+	 * @param nomeFornecedor nome do fornecedor
+	 * @param nomeProduto nome do produto
+	 * @param desc descricao referente ao produto
+	 * @param preco preco de um produto do tipo double
+	 * @throws IllegalArgumentException Caso o nomeProduto ou descricao sejam nulas ou string vazias, entao
+	 * a excecao eh lancada indicando em qual parametro ocorreu o erro. Caso o preco seja negativo tambem eh lancada a excecao.
+	 */
+	public void validaCadastroProduto(String nomeProduto, String desc, double preco) {
+		if(nomeProduto == null || nomeProduto.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
+		}
+		if(desc == null || desc.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
+		}
+		if(preco < 0) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
+		}
+	}
+	
+	/**
+	 * O metodo valida os parametros para exibir um produto.
+	 * @param nome do produto
+	 * @param descricao do produto
+	 * @param fornecedor do produto
+	 * @throws IllegalArgumentException Caso o nome, descricao ou fornecedor sejam nulas ou strings vazias entao
+	 * a excecao eh lancada indicando em qual parametro ocorreu o erro. 
+	 */
+	public void validaExibeProduto(String nome, String descricao, String fornecedor) {
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
+		}
+		if (descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
+		}
+		if (fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		}
+	}
+	
+	/**
+	 * O metodo valida os parametros para edicao de um produto
+	 * @param nome do produto
+	 * @param descricao do produto
+	 * @param fornecedor do produto
+	 * @param novoPreco do produto
+	 * @throws IllegalArgumentException Caso o nome, descricao ou fornecedor sejam nulas ou strings vazias entao
+	 * a excecao eh lancada indicando em qual parametro ocorreu o erro. Caso o preco seja negativo tambem eh lancada a excecao.
+	 */
+	public void validaEditaProduto(String nome, String descricao, String fornecedor, double novoPreco) {
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de produto: nome nao pode ser vazio ou nulo.");
+		}
+		if (descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de produto: descricao nao pode ser vazia ou nula.");
+		}
+		if (fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		}
+		if(novoPreco < 0) {
+			throw new IllegalArgumentException("Erro na edicao de produto: preco invalido.");
+		}
+	}
+	
+	/**
+	 * O metodo valida os parametros para remocao de um produto
+	 * @param nome do produto
+	 * @param descricao do produto
+	 * @param fornecedor do produto
+	 * @throws IllegalArgumentException Caso o nome, descricao ou fornecedor sejam nulas ou strings vazias entao
+	 * a excecao eh lancada indicando em qual parametro ocorreu o erro.
+	 */
+	public void validaRemoveProduto(String nome, String descricao, String fornecedor) {
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
+		}
+		if (descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro na remocao de produto: descricao nao pode ser vazia ou nula.");
+		}
+		if (fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
 	}
 }

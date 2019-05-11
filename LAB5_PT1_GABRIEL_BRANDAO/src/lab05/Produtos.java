@@ -22,7 +22,7 @@ public class Produtos {
 	 */
 	private double preco;
 	
-	/**
+	 /**
 	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
 	  * de dados de entrada
 	  */
@@ -36,28 +36,10 @@ public class Produtos {
 	 */
 	public Produtos(String nome, String descricao, double preco) {
 		this.valida = new Excecoes();
-		valida.validaEntrada(nome);
-		valida.validaEntrada(descricao);
-		valida.verificaValorProduto(preco);
+		valida.validaCadastroProduto(nome, descricao, preco);
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-	}
-	
-	/**
-	 * O metodo verifica o nome de um produto
-	 * @return o nome desse produto.
-	 */
-	public String getNome() {
-		return this.nome;
-	}
-	
-	/**
-	 * O metodo verifica a descricao de um produto
-	 * @return a descricao desse produto
-	 */
-	public String getDescricao() {
-		return this.descricao;
 	}
 	
 	/**
@@ -65,8 +47,13 @@ public class Produtos {
 	 * @param preco recebe o novo preco
 	 */
 	public void setPreco(double preco) {
-		valida.verificaValorProduto(preco);
 		this.preco = preco;
+	}
+	
+	public String toStringPreco() {
+		String s = String.format("%.2f", this.preco);
+		s.replaceAll(".", ",");
+		return s;
 	}
 	
 	/**
@@ -76,7 +63,7 @@ public class Produtos {
 	 */
 	@Override
 	public String toString() {
-		return this.nome + " - " + this.descricao + " - " + "R$" + this.preco;
+		return this.nome + " - " + this.descricao + " - " + "R$" + toStringPreco();
 	}
 
 	/**

@@ -79,24 +79,6 @@ class ClienteTest {
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", iae.getMessage());
 		}
-		try {
-			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
-			c.setNome("");
-		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
-		}
-		try {
-			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
-			c.setEmail("");
-		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
-		}
-		try {
-			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
-			c.setLocalizacao("");
-		}catch (IllegalArgumentException iae) {
-			assertEquals("Entrada vazia", iae.getMessage());
-		}
 	}
 	
 	@Test
@@ -120,24 +102,6 @@ class ClienteTest {
 			new Cliente("11122233344", "Gabriel", "gabriel@ccc", null);
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", iae.getMessage());
-		}
-		try {
-			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
-			c.setNome(null);
-		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
-		}
-		try {
-			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
-			c.setEmail(null); 
-		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
-		}
-		try {
-			Cliente c = new Cliente("11122233344", "Gabriel", "gabriel@ccc", "splab");
-			c.setLocalizacao(null);
-		}catch (NullPointerException npe) {
-			assertEquals("Entrada nula", npe.getMessage());
 		}
 	}
 }
