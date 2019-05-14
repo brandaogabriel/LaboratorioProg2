@@ -1,5 +1,10 @@
 package controllers;
 
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import lab05.Excecoes;
 
 /**
@@ -102,12 +107,14 @@ public class ControllerProdutos {
 	 * do produto, 'P' o preco do produto.
 	 */
 	public String exibeProdutosFornecedores() {
-		String produtos = "";
+		ArrayList<String> produtos = new ArrayList<>();
 		for (String p : this.fornecedores.getfornecedores().keySet()) {
-			produtos += this.fornecedores.getfornecedores().get(p).exibeTodosProdutosUmFornecedor(p);
-		}	
-		return produtos;
+			produtos.add(this.fornecedores.getfornecedores().get(p).exibeTodosProdutosUmFornecedor(p));
+		}
+		Collections.sort(produtos);
+		return String.join(" | ", produtos);
 	}
+
 	
 	/**
 	 * O metodo altera o preco de um produto em especifico

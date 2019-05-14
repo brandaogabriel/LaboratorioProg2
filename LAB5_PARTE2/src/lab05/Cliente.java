@@ -7,7 +7,7 @@ package lab05;
  */
 
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 	/**
 	 * Representa o cpf de um cliente
 	 */
@@ -48,6 +48,10 @@ public class Cliente {
 		this.nome = nome;
 		this.email = email;
 		this.localizacao = localizacao;
+	}
+	 
+	public String getName() {
+		return this.getName();
 	}
 	 
 	/**
@@ -117,6 +121,11 @@ public class Cliente {
 		} else if (!cpf.equals(other.cpf))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Cliente other) {
+		return this.nome.compareTo(other.getName());
 	}
 	 
 }

@@ -1,7 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 
 import lab05.Excecoes;
 import lab05.Fornecedor;
@@ -10,7 +11,7 @@ import lab05.Fornecedor;
  * Representacao de um controlador de fornecedor, este por sua vez eh responsavel por cadastrar, exibir, editar e remover
  * fornecedores do sistema SAGA 
  */
-public class ControllerFornecedores {
+public class ControllerFornecedores { 
 	
 	/**
 	 * Representacao de um mapa para clientes. A chave eh o cpf do cliente e o valor
@@ -22,10 +23,10 @@ public class ControllerFornecedores {
 	 * Representao de um mapa ordenado de fornecedores. A chave eh o nome do fornecedor e o valor
 	 * eh o objeto Fornecedor
 	 */
-	private TreeMap<String, Fornecedor> fornecedores;
+	private LinkedHashMap<String, Fornecedor> fornecedores;
 
 	public ControllerFornecedores() {
-		this.fornecedores = new TreeMap<>();
+		this.fornecedores = new LinkedHashMap<>();
 		this.valida = new Excecoes();
 	}
 	
@@ -70,6 +71,7 @@ public class ControllerFornecedores {
 		for (String f : this.fornecedores.keySet()) {
 			valores.add(this.fornecedores.get(f).toString());
 		}
+		Collections.sort(valores);
 		return String.join(" | ", valores);
 	} 
 	
@@ -136,7 +138,7 @@ public class ControllerFornecedores {
 	 * O metodo retorna o mapa de fornecedores para manipulacao no ControllerProdutos.
 	 * @return o mapa de fornecedores
 	 */
-	public TreeMap<String, Fornecedor> getfornecedores() {
+	public LinkedHashMap<String, Fornecedor> getfornecedores() {
 		return this.fornecedores;
 	}
 	

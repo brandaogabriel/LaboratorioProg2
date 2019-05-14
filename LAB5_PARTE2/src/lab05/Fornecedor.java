@@ -1,8 +1,8 @@
 package lab05;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 
 /**
  * Representacao de um fornecedor de um determinado estabelicimento que eh resposavel
@@ -10,7 +10,7 @@ import java.util.TreeMap;
  * um nome (identificador), email, telefone e uma lista de produtos do tipo produto.
  */
 
-public class Fornecedor {
+public class Fornecedor implements Comparable<Fornecedor>{
 	
 	/**
 	 * Representacao do nome de um fornecedor
@@ -31,7 +31,7 @@ public class Fornecedor {
 	 * Representacao dos produtos de um fornecedor atraves de um mapa.
 	 * A chave eh o nome do produto e a descricao, o valor eh o Produto.
 	 */
-	private Map<String,Produtos> produtos;
+	private LinkedHashMap<String,Produtos> produtos;
 	
 	/**
 	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
@@ -51,7 +51,11 @@ public class Fornecedor {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		this.produtos = new TreeMap<>();
+		this.produtos = new LinkedHashMap<>();
+	}
+	
+	public String getNome() {
+		return this.getNome();
 	}
 	
 	/**
@@ -118,9 +122,15 @@ public class Fornecedor {
 	 */
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
 		ArrayList<String> valores = new ArrayList<>();
-		for (String p : this.produtos.keySet()) {
-			valores.add(nomeFornecedor + " - " +  produtos.get(p).toString());
+		if (this.produtos.isEmpty()) {
+			valores.add(nomeFornecedor + " -");
 		}
+		else {
+			for (String p : this.produtos.keySet()) {
+				valores.add(nomeFornecedor + " - " +  produtos.get(p).toString());
+			}
+		}
+		Collections.sort(valores);
 		return String.join(" | ",valores);
 	}
 	
@@ -195,6 +205,11 @@ public class Fornecedor {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Fornecedor o) {
+		return this.nome.compareTo(o.getNome());
 	}
 		
 }

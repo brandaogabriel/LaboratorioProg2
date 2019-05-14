@@ -1,8 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import lab05.Cliente;
 import lab05.Excecoes;
@@ -26,7 +26,7 @@ public class ControllerClientes {
 	 * Representacao de um mapa para clientes. A chave eh o cpf do cliente e o valor
 	 * eh o objeto Cliente.
 	 */
-	private Map<String , Cliente> clientes;
+	private HashMap<String , Cliente> clientes;
 
 	/**
 	 * Constroi um controlador de clientes. 
@@ -80,6 +80,7 @@ public class ControllerClientes {
 		for (String c : this.clientes.keySet()) {
 			valores.add(this.clientes.get(c).toString());
 		}
+		Collections.sort(valores);
 		return String.join(" | ", valores);
 	}
 	
