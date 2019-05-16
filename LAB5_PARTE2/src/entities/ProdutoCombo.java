@@ -9,10 +9,12 @@ public class ProdutoCombo extends Produtos {
 		this.fator = fator;
 	}
 	
+	public void setFator(double fator) {
+		this.fator = fator;
+	}
+	
 	public void calculaPreco(double somaProdutos) {
 		super.preco = somaProdutos - this.fator * somaProdutos; 
 	}
-	
-	
 	
 }

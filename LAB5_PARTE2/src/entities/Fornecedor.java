@@ -179,7 +179,6 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	 *         nao existe para ser removido.
 	 */
 	public boolean removeProduto(String nomeProduto, String desc) {
-		;
 		String chave = nomeProduto + " " + desc;
 		if (produtos.containsKey(chave)) {
 			produtos.remove(chave);
@@ -187,7 +186,22 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		}
 		return false;
 	}
-
+	
+	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto) {
+		String chave = nome + " " + descricao;
+		ProdutoCombo produto = new ProdutoCombo(nome, descricao, fator);
+		produto.calculaPreco(valorSemDesconto);
+		produtos.put(chave, produto);
+	}
+	
+	public void editaCombo(String nome, String descricao, double novoFator) {
+		String chave = nome + " " + descricao;
+		if(produtos.containsKey(chave)) {
+			produtos.get(chave).alterPrecoCombo(novoFator);
+		}
+	}
+	
+	
 	/**
 	 * Retorna a String que representa um fornecedor no sistema. No formato NNNN -
 	 * EEEE - TTTT, onde 'N' representa o nome do fornecedor, 'E' representa o email

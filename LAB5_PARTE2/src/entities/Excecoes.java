@@ -200,4 +200,37 @@ public class Excecoes {
 			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
 	}
+	
+	public void validaCadastroCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		if (fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		}
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
+		}
+		if (descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
+		}
+		if (produtos == null || produtos.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo deve ter produtos.");
+		}
+		if (fator <= 0 || fator >=1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+		}
+	}
+	
+	public void validaEditaCombo(String nome, String descricao,String fornecedor, double novoFator) {
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
+		}
+		if (descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+		}
+		if (fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
+		}
+		if (novoFator <= 0 || novoFator >=1) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
+		}
+	}
 }

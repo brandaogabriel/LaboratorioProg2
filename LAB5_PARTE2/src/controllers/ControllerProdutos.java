@@ -86,6 +86,8 @@ public class ControllerProdutos {
 			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 		}
 		if (!this.fornecedores.get(fornecedor).verificaIgual(nome, descricao)) {
+			System.out.println(nome);
+			System.out.println(descricao);
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
 
@@ -181,15 +183,36 @@ public class ControllerProdutos {
 	}
 	
 	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
-		boolean existeOuNao = true;
+		valida.validaCadastroCombo(fornecedor, nome, descricao, fator, produtos);
 		String[] arrayprodutos = produtos.split(", ");
 		Fornecedor f = fornecedores.get(fornecedor);
-		for (String s : arrayprodutos) {
-			if(!(f.getProdutos().containsKey(s))) {
-				existeOuNao = false;
+		double valorDosProdutos = 0.0;
+		if(!(this.fornecedores.containsKey(fornecedor))) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+		}
+		if (this.fornecedores.get(fornecedor).verificaIgual(nome, descricao)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}		
+		
+		for(int i = 0; i < arrayprodutos.length; i++) {
+			arrayprodutos[i] = arrayprodutos[i].replace(" - ", " ");
+			if(!(f.getProdutos().containsKey(arrayprodutos[i]))) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
 			}
 		}
+		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, valorDosProdutos);
 	}
 	
-
+	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		valida.validaEditaCombo(nome, descricao, fornecedor, novoFator);
+		if(!(this.fornecedores.containsKey(fornecedor))) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
+		}
+		if(!this.fornecedores.get(fornecedor).verificaIgual(nome, descricao)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+		}
+		
+		fornecedores.get(fornecedor).editaCombo(nome, descricao, novoFator);
+	}
+		
 }

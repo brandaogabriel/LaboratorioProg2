@@ -23,7 +23,7 @@ public class Facade {
 
 	public static void main(String[] args) {
 		args = new String[] {"godguy.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt", "acceptance_test/use_case_3.txt",
-				"acceptance_test/use_case_4.txt"};
+				"acceptance_test/use_case_4.txt", "acceptance_test/use_case_5.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -91,4 +91,11 @@ public class Facade {
 		return this.produtos.removeProduto(nome, descricao, fornecedor);
 	}
 	
+	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		this.produtos.adicionaCombo(fornecedor, nome, descricao, fator, produtos);
+	}
+	
+	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		this.produtos.editaCombo(nome, descricao, fornecedor, novoFator);
+	}
 }

@@ -51,7 +51,16 @@ public class Produtos {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-
+	
+	public double getPreco() {
+		return this.preco;
+	}
+	
+	public void alterPrecoCombo(double novoFator) {
+		this.preco = this.preco - this.preco * novoFator;
+	}
+	
+	
 	/**
 	 * O metodo formata o valor de um produto acrescentano uma cada decimal e
 	 * trocando o '.' (ponto) pela ',' (virgula).
