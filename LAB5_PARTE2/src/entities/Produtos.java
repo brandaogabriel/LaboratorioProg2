@@ -1,4 +1,4 @@
-package lab05;
+package entities;
 
 /**
  * Representacao do produto de um fornecedor, este por sua vez possui nome,
@@ -6,33 +6,34 @@ package lab05;
  */
 
 public class Produtos {
-	
+
 	/**
 	 * Representa o nome de um produto
 	 */
 	private String nome;
-	
+
 	/**
 	 * Representa a descricao de um produto
 	 */
 	private String descricao;
-	
+
 	/**
 	 * Representa o preco de um produto
 	 */
-	private double preco;
-	
-	 /**
-	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
-	  * de dados de entrada
-	  */
+	protected double preco;
+
+	/**
+	 * Representa um conjunto de metodos do tipo Excecoes para realizar validacao de
+	 * dados de entrada
+	 */
 	private Excecoes valida;
-	
+
 	/**
 	 * Constroi um produto a partir de seu nome, descricao e preco
-	 * @param nome recebe o nome do produto
+	 * 
+	 * @param nome      recebe o nome do produto
 	 * @param descricao recebe a descricao do produto
-	 * @param preco recebe o preco do produto
+	 * @param preco     recebe o preco do produto
 	 */
 	public Produtos(String nome, String descricao, double preco) {
 		this.valida = new Excecoes();
@@ -41,18 +42,20 @@ public class Produtos {
 		this.descricao = descricao;
 		this.preco = preco;
 	}
-	
+
 	/**
 	 * O metodo altera o preco de um produto
+	 * 
 	 * @param preco recebe o novo preco
 	 */
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
+
 	/**
-	 * O metodo formata o valor de um produto acrescentano uma cada decimal
-	 * e trocando o '.' (ponto) pela ',' (virgula).
+	 * O metodo formata o valor de um produto acrescentano uma cada decimal e
+	 * trocando o '.' (ponto) pela ',' (virgula).
+	 * 
 	 * @return o preco formatado.
 	 */
 	public String toStringPreco() {
@@ -60,11 +63,11 @@ public class Produtos {
 		s.replaceAll(".", ",");
 		return s;
 	}
-	
+
 	/**
-	 * Retorna a String que representa o produto de um fornecedor.
-	 * No formato NNNN - DDDD - R$PP,PP onde 'N' representa o nome do produto,
-	 * 'D' representa a descricao do produto e 'P' representa o valor do produto.
+	 * Retorna a String que representa o produto de um fornecedor. No formato NNNN -
+	 * DDDD - R$PP,PP onde 'N' representa o nome do produto, 'D' representa a
+	 * descricao do produto e 'P' representa o valor do produto.
 	 */
 	@Override
 	public String toString() {
@@ -72,8 +75,8 @@ public class Produtos {
 	}
 
 	/**
-	 * Retorna um numero inteiro que representa um codigo que eh gerado 
-	 * a partir das informacoes do objeto Produto. 
+	 * Retorna um numero inteiro que representa um codigo que eh gerado a partir das
+	 * informacoes do objeto Produto.
 	 */
 	@Override
 	public int hashCode() {
@@ -83,11 +86,12 @@ public class Produtos {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
-	
+
 	/**
-	 * O metodo compara se um objeto eh igual ao outro, retornando true ou false.
-	 * No caso em questao ele ira verificar se o nome e a descricao de um produto sao iguais ao nome
-	 * e descricao de outro produto. Caso seja, retornara true, caso contrario, retornara false.
+	 * O metodo compara se um objeto eh igual ao outro, retornando true ou false. No
+	 * caso em questao ele ira verificar se o nome e a descricao de um produto sao
+	 * iguais ao nome e descricao de outro produto. Caso seja, retornara true, caso
+	 * contrario, retornara false.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -110,5 +114,5 @@ public class Produtos {
 			return false;
 		return true;
 	}
-	
+
 }

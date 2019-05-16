@@ -14,7 +14,7 @@ class ControllerProdutoTest {
 	@BeforeEach
 	void setUp() {
 		this.f1 = new ControllerFornecedores();
-		this.p1 = new ControllerProdutos(this.f1);
+		this.p1 = new ControllerProdutos(this.f1.getfornecedores());
 		f1.cadastraFornecedor("Gabriel", "gabriel@ccc.ufcg.edu.br", "4002-8922");
 		p1.cadastraProduto("Gabriel", "Leite", "Leite com pera", 10.50);
 	}

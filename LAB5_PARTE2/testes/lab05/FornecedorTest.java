@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import entities.Fornecedor;
+
 class FornecedorTest {
 
 	private Fornecedor f1;

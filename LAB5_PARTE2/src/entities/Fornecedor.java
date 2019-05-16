@@ -1,48 +1,50 @@
-package lab05;
+package entities;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 
 /**
- * Representacao de um fornecedor de um determinado estabelicimento que eh resposavel
- * por armazenar e manipular os produtos que a ele pertencem. Este por sua vez possui 
- * um nome (identificador), email, telefone e uma lista de produtos do tipo produto.
+ * Representacao de um fornecedor de um determinado estabelicimento que eh
+ * resposavel por armazenar e manipular os produtos que a ele pertencem. Este
+ * por sua vez possui um nome (identificador), email, telefone e uma lista de
+ * produtos do tipo produto.
  */
 
-public class Fornecedor implements Comparable<Fornecedor>{
-	
+public class Fornecedor implements Comparable<Fornecedor> {
+
 	/**
 	 * Representacao do nome de um fornecedor
 	 */
 	private String nome;
-	
+
 	/**
 	 * Representacao do email de um fornecedor
 	 */
 	private String email;
-	
+
 	/**
 	 * Representacao do telefone de um fornecedor
 	 */
 	private String telefone;
-	
+
 	/**
-	 * Representacao dos produtos de um fornecedor atraves de um mapa.
-	 * A chave eh o nome do produto e a descricao, o valor eh o Produto.
+	 * Representacao dos produtos de um fornecedor atraves de um mapa. A chave eh o
+	 * nome do produto e a descricao, o valor eh o Produto.
 	 */
-	private LinkedHashMap<String,Produtos> produtos;
-	
+	private LinkedHashMap<String, Produtos> produtos;
+
 	/**
-	  * Representa um conjunto de metodos do tipo Excecoes para realizar validacao
-	  * de dados de entrada
-	  */
+	 * Representa um conjunto de metodos do tipo Excecoes para realizar validacao de
+	 * dados de entrada
+	 */
 	private Excecoes valida;
-	
+
 	/**
 	 * Constroi um fornecedor a partir do nome, email e telefone
-	 * @param nome recebe o nome do fornecedor
-	 * @param email recebe o email do fornecedor
+	 * 
+	 * @param nome     recebe o nome do fornecedor
+	 * @param email    recebe o email do fornecedor
 	 * @param telefone recebe o telefone do fornecedor
 	 */
 	public Fornecedor(String nome, String email, String telefone) {
@@ -53,92 +55,111 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		this.telefone = telefone;
 		this.produtos = new LinkedHashMap<>();
 	}
-	
+
 	public String getNome() {
 		return this.getNome();
 	}
-	
+
 	/**
 	 * O metodo altera o email de um fornecedor
+	 * 
 	 * @param email recebe o novo email do fornecedor
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	
+	public LinkedHashMap<String, Produtos> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(LinkedHashMap<String, Produtos> produtos) {
+		this.produtos = produtos;
+	}
+
 	/**
 	 * O metodo altera o telefone de um fornecedor
+	 * 
 	 * @param telefone recebe o novo telefone do fornecedor
 	 */
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	/**
-	 * O metodo insere um produto com chave e valor dentro do mapa. A chave eh a concatenacao
-	 * do nome do produto e descricao. O valor eh o nome do produto, descricao e o preco.
+	 * O metodo insere um produto com chave e valor dentro do mapa. A chave eh a
+	 * concatenacao do nome do produto e descricao. O valor eh o nome do produto,
+	 * descricao e o preco.
+	 * 
 	 * @param nomeProduto recebe o nome do produto
-	 * @param desc recebe a descricao do produto
-	 * @param preco recebe o preco do produto
+	 * @param desc        recebe a descricao do produto
+	 * @param preco       recebe o preco do produto
 	 */
 	public void cadastraProduto(String nomeProduto, String desc, double preco) {
 		valida.validaCadastroProduto(nomeProduto, desc, preco);
 		String chave = nomeProduto + " " + desc;
 		produtos.put(chave, new Produtos(nomeProduto, desc, preco));
 	}
-	
+
 	/**
-	 * O metodo verifica se dois produtos sao iguais a partir do seu nome e descricao
+	 * O metodo verifica se dois produtos sao iguais a partir do seu nome e
+	 * descricao
+	 * 
 	 * @param nomeProduto recebe o nome do produto a ser verificado
-	 * @param desc recebe a descricao do produto a ser verificada.
-	 * @return caso o produto passado como parametro nao esteja dentro do mapa, sera 
-	 * retornado false. Caso o produto ja exista no mapa, sera retornado true.
+	 * @param desc        recebe a descricao do produto a ser verificada.
+	 * @return caso o produto passado como parametro nao esteja dentro do mapa, sera
+	 *         retornado false. Caso o produto ja exista no mapa, sera retornado
+	 *         true.
 	 */
 	public boolean verificaIgual(String nomeProduto, String desc) {
 		String chave = nomeProduto + " " + desc;
-		if(produtos.containsKey(chave)) {
+		if (produtos.containsKey(chave)) {
 			return true;
-		}return false;
+		}
+		return false;
 	}
-	
+
 	/**
 	 * O metodo exibe um produto existente dentro do mapa.
+	 * 
 	 * @param nomeProduto recebe o nome de um produto
-	 * @param desc recebe a descricao de um produto
-	 * @return Caso o produto exista sera retornado no seu formato toString. Caso contrario, 
-	 * sera retornado que o produto nao esta cadastrado.
+	 * @param desc        recebe a descricao de um produto
+	 * @return Caso o produto exista sera retornado no seu formato toString. Caso
+	 *         contrario, sera retornado que o produto nao esta cadastrado.
 	 */
 	public String exibeUmProduto(String nomeProduto, String desc) {
 		String chave = nomeProduto + " " + desc;
-		if(produtos.containsKey(chave)) {
+		if (produtos.containsKey(chave)) {
 			return produtos.get(chave).toString();
-		}return "Produto nao cadastrado";
+		}
+		return "Produto nao cadastrado";
 	}
-	
+
 	/**
 	 * O metodo exibe todos os produtos de um fornecedor
-	 * @param nomeFornecedor recebe o nome do fornecedor 
+	 * 
+	 * @param nomeFornecedor recebe o nome do fornecedor
 	 * @return todos os produtos.
 	 */
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
 		ArrayList<String> valores = new ArrayList<>();
 		if (this.produtos.isEmpty()) {
 			valores.add(nomeFornecedor + " -");
-		}
-		else {
+		} else {
 			for (String p : this.produtos.keySet()) {
-				valores.add(nomeFornecedor + " - " +  produtos.get(p).toString());
+				valores.add(nomeFornecedor + " - " + produtos.get(p).toString());
 			}
 		}
 		Collections.sort(valores);
-		return String.join(" | ",valores);
+		return String.join(" | ", valores);
 	}
-	
+
 	/**
 	 * O metodo altera o preco de um produto
+	 * 
 	 * @param nomeProduto recebe o nome do produto
-	 * @param desc recebe a descricao de um produto
-	 * @param preco recebe o novo preco a ser alterado
+	 * @param desc        recebe a descricao de um produto
+	 * @param preco       recebe o novo preco a ser alterado
 	 */
 	public boolean alteraPreco(String nomeProduto, String desc, double preco) {
 		String chave = nomeProduto + " " + desc;
@@ -147,35 +168,39 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return true;
 	}
-	
+
 	/**
 	 * O metodo remove um produto do mapa de produtos
+	 * 
 	 * @param nomeProduto recebe o nome do produto
-	 * @param desc recebe a descricao do produto
-	 * @return Se o produto existir no mapa, entao sua remocao eh feita e eh retornado true.
-	 * Caso contrario, sera retornado false, pois o produto nao existe para ser removido.
+	 * @param desc        recebe a descricao do produto
+	 * @return Se o produto existir no mapa, entao sua remocao eh feita e eh
+	 *         retornado true. Caso contrario, sera retornado false, pois o produto
+	 *         nao existe para ser removido.
 	 */
-	public boolean removeProduto(String nomeProduto, String desc) {;
+	public boolean removeProduto(String nomeProduto, String desc) {
+		;
 		String chave = nomeProduto + " " + desc;
-		if(produtos.containsKey(chave)) {
+		if (produtos.containsKey(chave)) {
 			produtos.remove(chave);
 			return true;
-		}return false;
+		}
+		return false;
 	}
-	
+
 	/**
-	 * Retorna a String que representa um fornecedor no sistema.
-	 * No formato NNNN - EEEE - TTTT, onde 'N' representa o nome do fornecedor,
-	 * 'E' representa o email do fornecedor e 'T' representa o telefone do fornecedor.
+	 * Retorna a String que representa um fornecedor no sistema. No formato NNNN -
+	 * EEEE - TTTT, onde 'N' representa o nome do fornecedor, 'E' representa o email
+	 * do fornecedor e 'T' representa o telefone do fornecedor.
 	 */
 	@Override
 	public String toString() {
 		return this.nome + " - " + this.email + " - " + this.telefone;
 	}
-	
+
 	/**
-	 * Retorna um numero inteiro que representa um codigo que eh gerado 
-	 * a partir das informacoes do objeto Fornecedor. 
+	 * Retorna um numero inteiro que representa um codigo que eh gerado a partir das
+	 * informacoes do objeto Fornecedor.
 	 */
 	@Override
 	public int hashCode() {
@@ -186,9 +211,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	}
 
 	/**
-	 * O metodo compara se um objeto eh igual ao outro, retornando true ou false.
-	 * No caso em questao ele ira verificar se o nome de um fornecedor eh igual ao nome
-	 * de outro fornecedor. Caso seja, retornara true, caso contrario, retornara false.
+	 * O metodo compara se um objeto eh igual ao outro, retornando true ou false. No
+	 * caso em questao ele ira verificar se o nome de um fornecedor eh igual ao nome
+	 * de outro fornecedor. Caso seja, retornara true, caso contrario, retornara
+	 * false.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -211,5 +237,5 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	public int compareTo(Fornecedor o) {
 		return this.nome.compareTo(o.getNome());
 	}
-		
+
 }

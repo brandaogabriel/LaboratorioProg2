@@ -17,7 +17,7 @@ public class Facade {
 	public Facade() {
 		this.clientes = new ControllerClientes();
 		this.fornecedores = new ControllerFornecedores();
-		this.produtos = new ControllerProdutos(fornecedores);
+		this.produtos = new ControllerProdutos(fornecedores.getfornecedores());
 	}
 	
 
