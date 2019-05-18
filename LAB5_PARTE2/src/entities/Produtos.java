@@ -5,7 +5,7 @@ package entities;
  * descricao e um preco.
  */
 
-public class Produtos {
+public class Produtos implements Comparable<Produtos> {
 
 	/**
 	 * Representa o nome de um produto
@@ -42,6 +42,10 @@ public class Produtos {
 		this.descricao = descricao;
 		this.preco = preco;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
 
 	/**
 	 * O metodo altera o preco de um produto
@@ -55,12 +59,7 @@ public class Produtos {
 	public double getPreco() {
 		return this.preco;
 	}
-	
-	public void alterPrecoCombo(double novoFator) {
-		this.preco = this.preco - this.preco * novoFator;
-	}
-	
-	
+		
 	/**
 	 * O metodo formata o valor de um produto acrescentano uma cada decimal e
 	 * trocando o '.' (ponto) pela ',' (virgula).
@@ -122,6 +121,11 @@ public class Produtos {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Produtos o) {
+		return this.nome.compareTo(o.getNome());
 	}
 
 }

@@ -50,8 +50,8 @@ public class Cliente implements Comparable<Cliente> {
 		this.localizacao = localizacao;
 	}
 
-	public String getName() {
-		return this.getName();
+	public String getNome() {
+		return this.nome;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class Cliente implements Comparable<Cliente> {
 
 	@Override
 	public int compareTo(Cliente other) {
-		return this.nome.compareTo(other.getName());
+		return this.nome.compareTo(other.getNome());
 	}
 
 }

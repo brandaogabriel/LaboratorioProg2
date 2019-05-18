@@ -142,16 +142,16 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	 * @return todos os produtos.
 	 */
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
-		ArrayList<String> valores = new ArrayList<>();
+		ArrayList<String> fornecedoresEprodutos = new ArrayList<>();
 		if (this.produtos.isEmpty()) {
-			valores.add(nomeFornecedor + " -");
+			fornecedoresEprodutos.add(nomeFornecedor + " -");
 		} else {
 			for (String p : this.produtos.keySet()) {
-				valores.add(nomeFornecedor + " - " + produtos.get(p).toString());
+				fornecedoresEprodutos.add(nomeFornecedor + " - " + produtos.get(p).toString());
 			}
 		}
-		Collections.sort(valores);
-		return String.join(" | ", valores);
+		Collections.sort(fornecedoresEprodutos);
+		return String.join(" | ", fornecedoresEprodutos);
 	}
 
 	/**
@@ -187,20 +187,31 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		return false;
 	}
 	
-	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto) {
+	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto, Produtos pSimples1, Produtos pSimples2) {
 		String chave = nome + " " + descricao;
 		ProdutoCombo produto = new ProdutoCombo(nome, descricao, fator);
 		produto.calculaPreco(valorSemDesconto);
 		produtos.put(chave, produto);
+		produto.insireProdutoSimples(pSimples1);
+		produto.insireProdutoSimples(pSimples2);
+	}
+	
+	public boolean verificaComboExiste(String nomeProduto) {
+		if(produtos.containsKey(nomeProduto)) {
+			return produtos.get(nomeProduto) instanceof ProdutoCombo;
+		}return false;
 	}
 	
 	public void editaCombo(String nome, String descricao, double novoFator) {
 		String chave = nome + " " + descricao;
 		if(produtos.containsKey(chave)) {
-			produtos.get(chave).alterPrecoCombo(novoFator);
+			if(produtos.get(chave) instanceof ProdutoCombo) {
+				ProdutoCombo combo = (ProdutoCombo) produtos.get(chave);
+				combo.setFator(novoFator);
+				combo.calculaPreco(combo.valorDosProdutosSimples());
+			}
 		}
 	}
-	
 	
 	/**
 	 * Retorna a String que representa um fornecedor no sistema. No formato NNNN -
