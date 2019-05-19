@@ -123,12 +123,12 @@ public class ControllerProdutos {
 	 *         nome do produto, 'D' a descricao do produto, 'P' o preco do produto.
 	 */
 	public String exibeProdutosFornecedores() {
-		ArrayList<Fornecedor> listaDeFornecedores= new ArrayList<>(this.fornecedores.values());
-		Collections.sort(listaDeFornecedores);
-		String saida = "";
-		for (Fornecedor fornecedor : listaDeFornecedores)
-			saida += fornecedor.exibeTodosProdutosUmFornecedor(fornecedor.getNome()) + " | ";
-		return saida;
+		ArrayList<String> produtos = new ArrayList<>();
+		for (String p : this.fornecedores.keySet()) {
+			produtos.add(this.fornecedores.get(p).exibeTodosProdutosUmFornecedor(p));
+		}
+		Collections.sort(produtos);
+		return String.join(" | ", produtos);
 	}
 
 	/**

@@ -142,19 +142,16 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	 * @return todos os produtos.
 	 */
 	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
-		if (produtos.isEmpty())
-			return nomeFornecedor + " -";
-		
-		String saida = "";
-		
-		ArrayList<Produtos> produtosDoFornecedor = new ArrayList<>(this.produtos.values());
-		
-		Collections.sort(produtosDoFornecedor);
-		
-		for (Produtos produto : produtosDoFornecedor) 
-			saida += nomeFornecedor + " - " + produto.toString() + " | ";
-		
-		return saida.substring(0, saida.length() - 3);
+		ArrayList<String> valores = new ArrayList<>();
+		if(this.produtos.isEmpty()) {
+			valores.add(nomeFornecedor + " -"); 
+		}else {
+			for (String p : this.produtos.keySet()) {
+				valores.add(nomeFornecedor + " - " + produtos.get(p).toString());
+			}
+		}
+		Collections.sort(valores);
+		return String.join(" | ", valores);
 	}
 
 	/**
