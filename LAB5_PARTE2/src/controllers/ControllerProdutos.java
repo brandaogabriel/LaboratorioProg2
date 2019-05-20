@@ -110,7 +110,7 @@ public class ControllerProdutos {
 		}
 		String produtos = "";
 		if (this.fornecedores.containsKey(nomeFornecedor)) {
-			produtos = this.fornecedores.get(nomeFornecedor).exibeTodosProdutosUmFornecedor(nomeFornecedor);
+			produtos = this.fornecedores.get(nomeFornecedor).exibeTodosProdutosUmFornecedor();
 		}
 		return produtos;
 	}
@@ -125,7 +125,7 @@ public class ControllerProdutos {
 	public String exibeProdutosFornecedores() {
 		ArrayList<String> produtos = new ArrayList<>();
 		for (String p : this.fornecedores.keySet()) {
-			produtos.add(this.fornecedores.get(p).exibeTodosProdutosUmFornecedor(p));
+			produtos.add(this.fornecedores.get(p).exibeTodosProdutosUmFornecedor());
 		}
 		Collections.sort(produtos);
 		return String.join(" | ", produtos);
@@ -205,8 +205,7 @@ public class ControllerProdutos {
 		}
 		
 		
-		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, valorDosProdutos, f.getProdutos().get(arrayprodutos[0]),
-				f.getProdutos().get(arrayprodutos[1]));
+		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, valorDosProdutos, arrayprodutos);
 	}
 	
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {

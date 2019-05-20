@@ -141,16 +141,21 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	 * @param nomeFornecedor recebe o nome do fornecedor
 	 * @return todos os produtos.
 	 */
-	public String exibeTodosProdutosUmFornecedor(String nomeFornecedor) {
+	public String exibeTodosProdutosUmFornecedor() {
 		ArrayList<String> valores = new ArrayList<>();
+		ArrayList<Produtos> produtosOrdenados = new ArrayList<>();
+		for (Produtos p : this.produtos.values()) {
+			produtosOrdenados.add(p);
+		}
+		Collections.sort(produtosOrdenados);
+		
 		if(this.produtos.isEmpty()) {
-			valores.add(nomeFornecedor + " -"); 
+			valores.add(this.nome + " -"); 
 		}else {
-			for (String p : this.produtos.keySet()) {
-				valores.add(nomeFornecedor + " - " + produtos.get(p).toString());
+			for (Produtos p : produtosOrdenados) {
+				valores.add(this.nome + " - " + p.toString());
 			}
 		}
-		Collections.sort(valores);
 		return String.join(" | ", valores);
 	}
 
@@ -187,13 +192,14 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		return false;
 	}
 	
-	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto, Produtos pSimples1, Produtos pSimples2) {
+	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto, String[] produtinhos) {
 		String chave = nome + " " + descricao;
 		ProdutoCombo produto = new ProdutoCombo(nome, descricao, fator);
 		produto.calculaPreco(valorSemDesconto);
 		produtos.put(chave, produto);
-		produto.insireProdutoSimples(pSimples1);
-		produto.insireProdutoSimples(pSimples2);
+		for(String p : produtinhos) {
+			produto.insireProdutoSimples(this.produtos.get(p));
+		}
 	}
 	
 	public boolean verificaComboExiste(String nomeProduto) {
