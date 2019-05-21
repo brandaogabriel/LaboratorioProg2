@@ -34,7 +34,11 @@ public class ControllerClientes {
 		this.clientes = new HashMap<>();
 		this.valida = new Excecoes();
 	}
-
+	
+	public HashMap<String, Cliente> getClientes(){
+		return  this.clientes;
+	}
+	
 	/**
 	 * O metodo eh responsavel por cadastrar um cliente
 	 * 

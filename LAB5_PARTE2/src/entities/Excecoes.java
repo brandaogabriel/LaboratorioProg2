@@ -233,4 +233,19 @@ public class Excecoes {
 			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
 		}
 	}
+	
+	@SuppressWarnings("unused")
+	public void validaString(String string, String msg) {
+		if(string.trim().equals("")) 
+			throw new IllegalArgumentException(msg);
+		if(string == null)
+			throw new NullPointerException(msg);
+	}
+	
+	public void validaCpf(String cpf, String msg) {
+		if (cpf.length() != 11) {
+			throw new IllegalArgumentException(msg);
+		}
+	}
+	
 }

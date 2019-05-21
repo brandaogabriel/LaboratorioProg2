@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Representacao de um fornecedor de um determinado estabelicimento que eh
@@ -33,7 +34,9 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	 * nome do produto e a descricao, o valor eh o Produto.
 	 */
 	private LinkedHashMap<String, Produtos> produtos;
-
+	
+	private Map<String, Conta> contasClientes;
+	
 	/**
 	 * Representa um conjunto de metodos do tipo Excecoes para realizar validacao de
 	 * dados de entrada
@@ -54,12 +57,26 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		this.email = email;
 		this.telefone = telefone;
 		this.produtos = new LinkedHashMap<>();
+		this.contasClientes = new LinkedHashMap<>();
 	}
 
 	public String getNome() {
 		return this.getNome();
 	}
-
+	
+	public Map<String, Conta> getContaCliente(){
+		return this.contasClientes;
+	}
+	
+	public void criaConta(String cpf) {
+		this.contasClientes.put(cpf, new Conta());
+	}
+	
+	public void insereProdutoNaConta(String cpf, String data, String nome_prod, String desc_prod) {
+		double precoProduto = this.produtos.get(nome_prod + " " + desc_prod).getPreco();
+		this.contasClientes.get(cpf).insereCompra(data, nome_prod, desc_prod, precoProduto);
+	}
+		
 	/**
 	 * O metodo altera o email de um fornecedor
 	 * 

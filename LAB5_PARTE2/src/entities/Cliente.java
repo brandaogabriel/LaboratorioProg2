@@ -26,7 +26,7 @@ public class Cliente implements Comparable<Cliente> {
 	 * Representa a localizacao de um cliente
 	 */
 	private String localizacao;
-
+	
 	/**
 	 * Representa um conjunto de metodos do tipo Excecoes para realizar validacao de
 	 * dados de entrada
