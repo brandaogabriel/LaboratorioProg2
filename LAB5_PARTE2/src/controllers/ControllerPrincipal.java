@@ -1,6 +1,11 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import entities.Excecoes;
+import entities.Fornecedor;
 
 public class ControllerPrincipal {
 
@@ -109,15 +114,79 @@ public class ControllerPrincipal {
 	}
 
 	public void adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
+		valida.validaString(cpf, "Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.");
+		valida.validaString(fornecedor, "Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.");
+		valida.validaString(data, "Erro ao cadastrar compra: data nao pode ser vazia ou nula.");
+		valida.validaData(data, "Erro ao cadastrar compra: data invalida.");
+		valida.validaString(nome_prod,"Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
+		valida.validaString(desc_prod, "Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.");
 		valida.validaCpf(cpf, "Erro ao cadastrar compra: cpf invalido.");
 		if (!this.cf.getfornecedores().containsKey(fornecedor))
 			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe.");
 		if (!this.cc.getClientes().containsKey(cpf))
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
-
+		if(!this.cf.getfornecedores().get(fornecedor).verificaIgual(nome_prod, desc_prod))
+			throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
 		if (!this.cf.getfornecedores().get(fornecedor).getContaCliente().containsKey(cpf))
 			this.cf.getfornecedores().get(fornecedor).criaConta(cpf);
 		this.cf.getfornecedores().get(fornecedor).insereProdutoNaConta(cpf, data, nome_prod, desc_prod);
-
 	}
+	
+	public String getDebito(String cpf, String fornecedor) {
+		valida.validaString(cpf, "Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.");
+		valida.validaCpf(cpf, "Erro ao recuperar debito: cpf invalido.");
+		valida.validaString(fornecedor, "Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.cc.getClientes().containsKey(cpf))
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao existe.");
+		if(!this.cf.getfornecedores().containsKey(fornecedor))
+			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
+		if(!this.cf.getfornecedores().get(fornecedor).verificaSeTemConta(cpf)) 
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
+		return this.cf.getfornecedores().get(fornecedor).pegaValorDaConta(cpf);
+	}
+	
+	public String exibeContas(String cpf, String fornecedor) {
+		valida.validaString(cpf, "Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.");
+		valida.validaCpf(cpf, "Erro ao exibir conta do cliente: cpf invalido.");
+		valida.validaString(fornecedor, "Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.cc.getClientes().containsKey(cpf))
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao existe.");
+		if(!this.cf.getfornecedores().containsKey(fornecedor))
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao existe.");
+		if(!this.cf.getfornecedores().get(fornecedor).verificaSeTemConta(cpf)) 
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
+		
+		return "Cliente: " + this.cc.getClientes().get(cpf).getNome() + " | " + this.cf.getfornecedores().get(fornecedor).exibeContas(cpf);
+	}
+	
+	public String exibeContasClientes(String cpf) {
+		valida.validaString(cpf, "Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.");
+		valida.validaCpf(cpf, "Erro ao exibir contas do cliente: cpf invalido.");
+		if(!this.cc.getClientes().containsKey(cpf))
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
+		String conta = "";
+		List<String> teste = new ArrayList<>();
+		for(Fornecedor f : this.cf.getfornecedores().values()) {
+			if(f.verificaSeTemConta(cpf)) {
+				conta += f.exibeContas(cpf) + " | ";
+				teste.add(conta);
+			}
+		}
+		Collections.sort(teste);
+		return "Cliente: " + this.cc.getClientes().get(cpf).getNome() + " | "  + conta;
+	}
+	
+	public void realizaPagamento(String cpf, String fornecedor) {
+		valida.validaString(cpf, "Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
+		valida.validaCpf(cpf, "Erro no pagamento de conta: cpf invalido.");
+		valida.validaString(fornecedor, "Erro no pagamento de conta: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.cc.getClientes().containsKey(cpf))
+			throw new IllegalArgumentException("Erro no pagamento de conta: cliente nao existe.");
+		if(!this.cf.getfornecedores().containsKey(fornecedor))
+			throw new IllegalArgumentException("Erro no pagamento de conta: fornecedor nao existe.");
+		if(!this.cf.getfornecedores().get(fornecedor).verificaSeTemConta(cpf)) 
+			throw new IllegalArgumentException("Erro no pagamento de conta: nao ha debito do cliente associado a este fornecedor.");
+		this.cf.getfornecedores().get(fornecedor).realizaPagamento(cpf);
+	}
+	
 }

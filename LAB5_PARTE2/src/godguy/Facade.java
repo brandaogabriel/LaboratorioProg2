@@ -12,10 +12,10 @@ public class Facade {
 		this.cp = new ControllerPrincipal();
 	}
 	
-
+	
 	public static void main(String[] args) {
 		args = new String[] {"godguy.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt", "acceptance_test/use_case_3.txt",
-				"acceptance_test/use_case_4.txt", "acceptance_test/use_case_5.txt", "acceptance_test/use_case_6.txt"};
+				"acceptance_test/use_case_4.txt", "acceptance_test/use_case_5.txt", "acceptance_test/use_case_6.txt", "acceptance_test/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -92,5 +92,21 @@ public class Facade {
 	}
 	public void adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
 		this.cp.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod);
+	}
+	
+	public String getDebito(String cpf, String fornecedor) {
+		return this.cp.getDebito(cpf, fornecedor);
+	}
+	
+	public String exibeContas(String cpf, String fornecedor) {
+		return this.cp.exibeContas(cpf, fornecedor);
+	}
+	
+	public String exibeContasClientes(String cpf) {
+		return cp.exibeContasClientes(cpf);
+	}
+	
+	public void realizaPagamento(String cpf, String fornecedor) {
+		cp.realizaPagamento(cpf, fornecedor);
 	}
 }

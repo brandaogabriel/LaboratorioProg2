@@ -76,7 +76,23 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		double precoProduto = this.produtos.get(nome_prod + " " + desc_prod).getPreco();
 		this.contasClientes.get(cpf).insereCompra(data, nome_prod, desc_prod, precoProduto);
 	}
-		
+	
+	public String pegaValorDaConta(String cpf) {
+		return this.contasClientes.get(cpf).getDebito();
+	}
+	
+	public boolean verificaSeTemConta(String cpf) {
+		return this.contasClientes.containsKey(cpf);
+	}
+	
+	public String exibeContas(String cpf) {
+		return this.nome + " | " +  this.contasClientes.get(cpf).reuneProdutos();
+	}
+	
+	public void realizaPagamento(String cpf) {
+		this.contasClientes.remove(cpf);
+	}
+	
 	/**
 	 * O metodo altera o email de um fornecedor
 	 * 

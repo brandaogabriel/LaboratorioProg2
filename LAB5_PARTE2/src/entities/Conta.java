@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Conta {
 	
+	
 	private List<Compra> compras;
 	private double debito;
 	
@@ -18,11 +19,20 @@ public class Conta {
 		compras.add(c);
 	}
 	
-	public double getDebito() {
-		for(Compra c : this.compras) {
-			debito += c.getPreco();
+	public String getDebito() {
+		for(int i = 0; i < compras.size(); i++) {
+			this.debito += compras.get(i).getPreco();
 		}
-		return debito;
+		return String.format("%.2f", debito).replaceAll(",", ".");
 	}
+
 	
+	public String reuneProdutos() {
+		List<String> compras = new ArrayList<>();
+		for (Compra c : this.compras) {
+			compras.add(c.toString());
+		}
+		return String.join(" | ", compras);
+	}
+		
 }

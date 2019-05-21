@@ -15,16 +15,20 @@ public class Compra {
 	}
 
 	public String getDescProduto() {
-		return descProduto;
+		return this.descProduto;
+	}
+	
+	public String getData() {
+		return this.data;
 	}
 
 	public double getPreco() {
 		return preco;
 	}
-
+	
 	@Override
 	public String toString() {
-		return this.nomeProduto + " - " + this.data;
+		return this.nomeProduto + " - " + this.data.replace("/", "-");
 	}
 	
 	

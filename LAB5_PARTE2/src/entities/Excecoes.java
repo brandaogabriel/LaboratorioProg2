@@ -234,16 +234,20 @@ public class Excecoes {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	public void validaString(String string, String msg) {
-		if(string.trim().equals("")) 
+		if( string == null ||string.trim().equals("")) 
 			throw new IllegalArgumentException(msg);
-		if(string == null)
-			throw new NullPointerException(msg);
 	}
 	
 	public void validaCpf(String cpf, String msg) {
 		if (cpf.length() != 11) {
+			throw new IllegalArgumentException(msg);
+		}
+	}
+	
+	public void validaData(String data, String msg) {
+		String verifica = data.replace("/", "");
+		if(verifica.length() != 8) {
 			throw new IllegalArgumentException(msg);
 		}
 	}
