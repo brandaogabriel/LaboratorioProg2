@@ -61,7 +61,7 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	}
 
 	public String getNome() {
-		return this.getNome();
+		return this.nome;
 	}
 	
 	public Map<String, Conta> getContaCliente(){

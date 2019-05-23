@@ -23,7 +23,7 @@ public class Compra {
 	}
 
 	public double getPreco() {
-		return preco;
+		return this.preco;
 	}
 	
 	@Override

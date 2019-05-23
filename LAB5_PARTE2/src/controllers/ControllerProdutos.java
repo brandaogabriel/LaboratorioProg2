@@ -182,17 +182,24 @@ public class ControllerProdutos {
 	
 	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
 		valida.validaCadastroCombo(fornecedor, nome, descricao, fator, produtos);
-		String[] arrayprodutos = produtos.split(", ");
 		Fornecedor f = fornecedores.get(fornecedor);
 		double valorDosProdutos = 0.0;
-
 		if(!(this.fornecedores.containsKey(fornecedor))) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
 		}
 		if (this.fornecedores.get(fornecedor).verificaIgual(nome, descricao)) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}	
+		String[] listaProdutos = retornaProdutos(fornecedor, produtos);
+		for (int i = 0; i < listaProdutos.length; i ++) {
+			valorDosProdutos += f.getProdutos().get(listaProdutos[i]).getPreco();
 		}
-		
+		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, valorDosProdutos, listaProdutos);
+	}
+	
+	private String[] retornaProdutos(String fornecedor, String produtos) {
+		String[] arrayprodutos = produtos.split(", ");
+		Fornecedor f = fornecedores.get(fornecedor);
 		for(int i = 0; i < arrayprodutos.length; i++) {
 			arrayprodutos[i] = arrayprodutos[i].replace(" - ", " ");
 			if(!(f.getProdutos().containsKey(arrayprodutos[i]))) {
@@ -201,13 +208,10 @@ public class ControllerProdutos {
 			if(this.fornecedores.get(fornecedor).verificaComboExiste(arrayprodutos[i])) {
 				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
 			}
-			valorDosProdutos += f.getProdutos().get(arrayprodutos[i]).getPreco();
 		}
-		
-		
-		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, valorDosProdutos, arrayprodutos);
+		return arrayprodutos;	
 	}
-	
+
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		valida.validaEditaCombo(nome, descricao, fornecedor, novoFator);
 		if(!(this.fornecedores.containsKey(fornecedor))) {

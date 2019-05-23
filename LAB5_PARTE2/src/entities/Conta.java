@@ -7,11 +7,9 @@ public class Conta {
 	
 	
 	private List<Compra> compras;
-	private double debito;
 	
 	public Conta() {
 		this.compras = new ArrayList<>();
-		this.debito = 0.0;
 	}
 
 	public void insereCompra(String data, String nome_prod, String desc_prod, double preco) {
@@ -19,11 +17,16 @@ public class Conta {
 		compras.add(c);
 	}
 	
-	public String getDebito() {
-		for(int i = 0; i < compras.size(); i++) {
-			this.debito += compras.get(i).getPreco();
+	private double calculaDebito() {
+		double debito = 0;
+		for(Compra c : this.compras) {
+			debito += c.getPreco();
 		}
-		return String.format("%.2f", debito).replaceAll(",", ".");
+		return debito;
+	}
+	
+	public String getDebito() {
+		return String.format("%.2f", calculaDebito()).replaceAll(",", ".");
 	}
 
 	

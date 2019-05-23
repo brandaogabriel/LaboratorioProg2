@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import entities.Excecoes;
 import entities.Fornecedor;
@@ -162,18 +161,25 @@ public class ControllerPrincipal {
 	public String exibeContasClientes(String cpf) {
 		valida.validaString(cpf, "Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.");
 		valida.validaCpf(cpf, "Erro ao exibir contas do cliente: cpf invalido.");
+		boolean possuiConta = false;
+		
 		if(!this.cc.getClientes().containsKey(cpf))
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
+		
 		String conta = "";
-		List<String> teste = new ArrayList<>();
-		for(Fornecedor f : this.cf.getfornecedores().values()) {
+		ArrayList<Fornecedor> fornecedores = new ArrayList<>(this.cf.getfornecedores().values());	
+		Collections.sort(fornecedores);
+		for(Fornecedor f : fornecedores) {
 			if(f.verificaSeTemConta(cpf)) {
 				conta += f.exibeContas(cpf) + " | ";
-				teste.add(conta);
-			}
-		}
-		Collections.sort(teste);
-		return "Cliente: " + this.cc.getClientes().get(cpf).getNome() + " | "  + conta;
+				possuiConta = true;
+			}			
+		}	
+		if(!possuiConta)
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao tem nenhuma conta.");
+		
+		String msg = "Cliente: " + this.cc.getClientes().get(cpf).getNome() + " | "  + conta;
+		return msg.substring(0, msg.length() - 3);
 	}
 	
 	public void realizaPagamento(String cpf, String fornecedor) {
