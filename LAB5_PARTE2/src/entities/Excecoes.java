@@ -19,10 +19,7 @@ public class Excecoes {
 	 *                                  lancada indicando em qual parametro ocorreu
 	 *                                  o erro.
 	 */
-	public void validaCadastroCliente(String cpf, String nome, String email, String localizacao) {
-		if (cpf == null || cpf.length() < 11 || cpf.length() > 11) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
-		}
+	public void validaCadastroCliente(String nome, String email, String localizacao) {
 		if (nome == null || nome.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
 		}
@@ -87,8 +84,9 @@ public class Excecoes {
 	 * @param atributo  parametro do tipo string a ser avaliado.
 	 * @param novoValor parametro do tipo string a ser avaliado.
 	 * @throws IllegalArgumentException Caso o atributo ou o novoValor sejam nulos
-	 *                                  ou string vazias, ent�o a excecao eh lancada
-	 *                                  indicando em qual parametro ocorreu o erro.
+	 *                                  ou string vazias, ent�o a excecao eh
+	 *                                  lancada indicando em qual parametro ocorreu
+	 *                                  o erro.
 	 */
 	public void validaEditaFornecedor(String atributo, String novoValor) {
 		if (atributo == null || atributo.equals("")) {
@@ -200,7 +198,19 @@ public class Excecoes {
 			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
 	}
-	
+
+	/**
+	 * O metodo valida os parametros para o cadastro de um combo
+	 * 
+	 * @param fornecedor recebe nome de um fornecedor
+	 * @param nome       recebe nome do combo
+	 * @param descricao  recebe descricao do combo
+	 * @param fator      recebe o fator do combo
+	 * @param produtos   recebe o nome dos produtos simples
+	 * @throws IllegalArgumentException Caso o fornecedor, nome, descricao, fator ou
+	 *                                  produtos sejam nulas, string vazias ou o
+	 *                                  fator seja negativo, a excecao eh lancada
+	 */
 	public void validaCadastroCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
 		if (fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
@@ -214,12 +224,24 @@ public class Excecoes {
 		if (produtos == null || produtos.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: combo deve ter produtos.");
 		}
-		if (fator <= 0 || fator >=1) {
+		if (fator <= 0 || fator >= 1) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
 		}
 	}
-	
-	public void validaEditaCombo(String nome, String descricao,String fornecedor, double novoFator) {
+
+	/**
+	 * O metodo valida os parametros de edicao de um combo
+	 * 
+	 * @param nome       recebe o nome do combo
+	 * @param descricao  recebe a descricao do combo
+	 * @param fornecedor recebe o nome do fornecedor que contem o combo
+	 * @param novoFator  recebe o novo fator
+	 * @throws IllegalArgumentException Caso o nome, descricao, fornecedor ou fator
+	 *                                  sejam nulas, string vazias ou o novo fator
+	 *                                  seja negativo ou maior-igual a 1, a excecao
+	 *                                  eh lancada
+	 */
+	public void validaEditaCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		if (nome == null || nome.equals("")) {
 			throw new IllegalArgumentException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
 		}
@@ -229,27 +251,55 @@ public class Excecoes {
 		if (fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
 		}
-		if (novoFator <= 0 || novoFator >=1) {
+		if (novoFator <= 0 || novoFator >= 1) {
 			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
 		}
 	}
-	
+
+	/**
+	 * O metodo valida uma entrada do tipo string
+	 * 
+	 * @param string recebe a entrada
+	 * @param msg    mensagem que sera lancada caso a entrada seja invalida
+	 * @throws IllegalArgumentException Caso a entrada passada como paramentro seja
+	 *                                  nula ou uma string vazia a excecao eh
+	 *                                  lancada com uma mensagem que eh passada como
+	 *                                  parametro
+	 */
 	public void validaString(String string, String msg) {
-		if( string == null ||string.trim().equals("")) 
+		if (string == null || string.trim().equals(""))
 			throw new IllegalArgumentException(msg);
 	}
-	
+
+	/**
+	 * O metodo valida o cpf de um cliente
+	 * 
+	 * @param cpf recebe o cpf do cliente
+	 * @param msg recebe a mensagem que sera lancada caso o cpf seja invalido
+	 * @throws IllegalArgumentException Caso o cpf seja invalido a excecao eh
+	 *                                  lancada com uma mensagem que eh passada como
+	 *                                  parametro
+	 */
 	public void validaCpf(String cpf, String msg) {
 		if (cpf.length() != 11) {
 			throw new IllegalArgumentException(msg);
 		}
 	}
-	
+
+	/**
+	 * O metodo valida uma data de compra
+	 * 
+	 * @param data recebe a data da compra
+	 * @param msg  recebe a mensagem que sera lancada caso a data seja invalida
+	 * @throws IllegalArgumentException Caso a data seja invalida a excecao eh
+	 *                                  lancada com uma mensagem que eh passada como
+	 *                                  parametro
+	 */
 	public void validaData(String data, String msg) {
 		String verifica = data.replace("/", "");
-		if(verifica.length() != 8) {
+		if (verifica.length() != 8) {
 			throw new IllegalArgumentException(msg);
 		}
 	}
-	
+
 }

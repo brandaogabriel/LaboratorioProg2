@@ -7,6 +7,7 @@ package entities;
  */
 
 public class Cliente implements Comparable<Cliente> {
+
 	/**
 	 * Representa o cpf de um cliente
 	 */
@@ -26,7 +27,7 @@ public class Cliente implements Comparable<Cliente> {
 	 * Representa a localizacao de um cliente
 	 */
 	private String localizacao;
-	
+
 	/**
 	 * Representa um conjunto de metodos do tipo Excecoes para realizar validacao de
 	 * dados de entrada
@@ -43,13 +44,19 @@ public class Cliente implements Comparable<Cliente> {
 	 */
 	public Cliente(String cpf, String nome, String email, String localizacao) {
 		this.valida = new Excecoes();
-		valida.validaCadastroCliente(cpf, nome, email, localizacao);
+		valida.validaCpf(cpf, "Erro no cadastro do cliente: cpf invalido.");
+		valida.validaCadastroCliente(nome, email, localizacao);
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.localizacao = localizacao;
 	}
 
+	/**
+	 * O metodo retorna o nome de um cliente
+	 * 
+	 * @return o nome do cliente
+	 */
 	public String getNome() {
 		return this.nome;
 	}
@@ -126,6 +133,11 @@ public class Cliente implements Comparable<Cliente> {
 		return true;
 	}
 
+	/**
+	 * O metodo compara se o nome de um cliente eh maior que o outro alfabeticamente
+	 * 
+	 * @return um numero inteiro
+	 */
 	@Override
 	public int compareTo(Cliente other) {
 		return this.nome.compareTo(other.getNome());

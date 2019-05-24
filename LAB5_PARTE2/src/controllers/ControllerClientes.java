@@ -51,7 +51,8 @@ public class ControllerClientes {
 	 *                                  a excecao eh lancada
 	 */
 	public String cadastraCliente(String cpf, String nome, String email, String localizacao) {
-		valida.validaCadastroCliente(cpf, nome, email, localizacao);
+		valida.validaCpf(cpf, "Erro no cadastro do cliente: cpf invalido.");
+		valida.validaCadastroCliente(nome, email, localizacao);
 		if (!this.clientes.containsKey(cpf)) {
 			clientes.put(cpf, new Cliente(cpf, nome, email, localizacao));
 			return cpf;

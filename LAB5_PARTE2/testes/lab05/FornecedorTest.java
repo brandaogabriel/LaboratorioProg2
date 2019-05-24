@@ -59,8 +59,8 @@ class FornecedorTest {
 	@Test
 	void testExibeTodosProdutosUmFornecedor() {
 		f1.cadastraProduto("Jujuba", "Jujuba e leite", 2.50);
-		assertEquals("Gabriel - Abacate - Abacate de uva - R$5,10 | Gabriel - Jujuba - Jujuba e leite - R$2,50 | ", f1.exibeTodosProdutosUmFornecedor("Gabriel"));
-		assertEquals("Jujubinha - Leite - Leite com pera - R$15,12 | ", f2.exibeTodosProdutosUmFornecedor("Jujubinha"));
+		assertEquals("Gabriel - Abacate - Abacate de uva - R$5,10 | Gabriel - Jujuba - Jujuba e leite - R$2,50", f1.exibeTodosProdutosUmFornecedor());
+		assertEquals("Jujubinha - Leite - Leite com pera - R$15,12", f2.exibeTodosProdutosUmFornecedor());
 	}
 	
 	@Test

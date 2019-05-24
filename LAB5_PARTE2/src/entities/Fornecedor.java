@@ -34,9 +34,13 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	 * nome do produto e a descricao, o valor eh o Produto.
 	 */
 	private LinkedHashMap<String, Produtos> produtos;
-	
+
+	/**
+	 * Representacao da conta de um cliente atraves de um mapa. A chave eh o cpf do
+	 * cliente e o valor eh o tipo Conta
+	 */
 	private Map<String, Conta> contasClientes;
-	
+
 	/**
 	 * Representa um conjunto de metodos do tipo Excecoes para realizar validacao de
 	 * dados de entrada
@@ -60,39 +64,24 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		this.contasClientes = new LinkedHashMap<>();
 	}
 
+	/**
+	 * O metodo retorna o nome de um fornecedor
+	 * 
+	 * @return nome do fornecedor
+	 */
 	public String getNome() {
 		return this.nome;
 	}
-	
-	public Map<String, Conta> getContaCliente(){
+
+	/**
+	 * O metodo retorna o mapa das contas dos clientes de um fornecedor
+	 * 
+	 * @return mapa das contas
+	 */
+	public Map<String, Conta> getContaCliente() {
 		return this.contasClientes;
 	}
-	
-	public void criaConta(String cpf) {
-		this.contasClientes.put(cpf, new Conta());
-	}
-	
-	public void insereProdutoNaConta(String cpf, String data, String nome_prod, String desc_prod) {
-		double precoProduto = this.produtos.get(nome_prod + " " + desc_prod).getPreco();
-		this.contasClientes.get(cpf).insereCompra(data, nome_prod, desc_prod, precoProduto);
-	}
-	
-	public String pegaValorDaConta(String cpf) {
-		return this.contasClientes.get(cpf).getDebito();
-	}
-	
-	public boolean verificaSeTemConta(String cpf) {
-		return this.contasClientes.containsKey(cpf);
-	}
-	
-	public String exibeContas(String cpf) {
-		return this.nome + " | " +  this.contasClientes.get(cpf).reuneProdutos();
-	}
-	
-	public void realizaPagamento(String cpf) {
-		this.contasClientes.remove(cpf);
-	}
-	
+
 	/**
 	 * O metodo altera o email de um fornecedor
 	 * 
@@ -101,13 +90,14 @@ public class Fornecedor implements Comparable<Fornecedor> {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	/**
+	 * O metodo retorna o mapa de produtos do fornecedor
+	 * 
+	 * @return mapa de produtos do fornecedor
+	 */
 	public LinkedHashMap<String, Produtos> getProdutos() {
 		return produtos;
-	}
-
-	public void setProdutos(LinkedHashMap<String, Produtos> produtos) {
-		this.produtos = produtos;
 	}
 
 	/**
@@ -181,10 +171,10 @@ public class Fornecedor implements Comparable<Fornecedor> {
 			produtosOrdenados.add(p);
 		}
 		Collections.sort(produtosOrdenados);
-		
-		if(this.produtos.isEmpty()) {
-			valores.add(this.nome + " -"); 
-		}else {
+
+		if (this.produtos.isEmpty()) {
+			valores.add(this.nome + " -");
+		} else {
 			for (Produtos p : produtosOrdenados) {
 				valores.add(this.nome + " - " + p.toString());
 			}
@@ -224,34 +214,128 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		}
 		return false;
 	}
-	
-	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto, String[] produtinhos) {
+
+	/**
+	 * O metodo ira cadastrar o combo de produtos e ira inseri-lo no mapa de
+	 * produtos. Alem disso ele tambem ira armazenar em uma lista os produtos que
+	 * compoem esse combo para que seja possivel obter o preco de cada produto
+	 * separadamente
+	 * 
+	 * @param nome             recebe o nome do combo
+	 * @param descricao        recebe a descricao do combo
+	 * @param fator            recebe o fator do combo
+	 * @param valorSemDesconto recebe o valor total dos dois produtos simples
+	 * @param produtinhos      recebe um array do tipo string que contem o nome e a
+	 *                         descricao (chave) de cada produto simples que compoe
+	 *                         o combo
+	 */
+	public void cadastraCombo(String nome, String descricao, double fator, double valorSemDesconto,
+			String[] produtinhos) {
 		String chave = nome + " " + descricao;
 		ProdutoCombo produto = new ProdutoCombo(nome, descricao, fator);
 		produto.calculaPreco(valorSemDesconto);
 		produtos.put(chave, produto);
-		for(String p : produtinhos) {
+		for (String p : produtinhos) {
 			produto.insireProdutoSimples(this.produtos.get(p));
 		}
 	}
-	
+
+	/**
+	 * O metodo verifica se o combo ja existe
+	 * 
+	 * @param nomeProduto recebe o nome do combo
+	 * @return Caso o combo exista sera retornado true, senao sera retornado false
+	 */
 	public boolean verificaComboExiste(String nomeProduto) {
-		if(produtos.containsKey(nomeProduto)) {
+		if (produtos.containsKey(nomeProduto)) {
 			return produtos.get(nomeProduto) instanceof ProdutoCombo;
-		}return false;
+		}
+		return false;
 	}
-	
+
+	/**
+	 * O metodo edita o fator de um combo existente
+	 * 
+	 * @param nome      recebe o nome do combo
+	 * @param descricao recebe a descricao do combo
+	 * @param novoFator recebe o novo fator do combo
+	 */
 	public void editaCombo(String nome, String descricao, double novoFator) {
 		String chave = nome + " " + descricao;
-		if(produtos.containsKey(chave)) {
-			if(produtos.get(chave) instanceof ProdutoCombo) {
+		if (produtos.containsKey(chave)) {
+			if (produtos.get(chave) instanceof ProdutoCombo) {
 				ProdutoCombo combo = (ProdutoCombo) produtos.get(chave);
 				combo.setFator(novoFator);
 				combo.calculaPreco(combo.valorDosProdutosSimples());
 			}
 		}
 	}
-	
+
+	/**
+	 * O metodo cria uma conta de um cliente para um fornecedor
+	 * 
+	 * @param cpf recebe o cpf de um cliente existente
+	 */
+	public void criaConta(String cpf) {
+		this.contasClientes.put(cpf, new Conta());
+	}
+
+	/**
+	 * O metodo insere na conta de um cliente um produto que o mesmo comprou
+	 * 
+	 * @param cpf       recebe o cpf do cliente
+	 * @param data      recebe a data da compra do produto
+	 * @param nome_prod recebe o nome do produto
+	 * @param desc_prod recebe a descricao do produto
+	 */
+	public void insereProdutoNaConta(String cpf, String data, String nome_prod, String desc_prod) {
+		double precoProduto = this.produtos.get(nome_prod + " " + desc_prod).getPreco();
+		this.contasClientes.get(cpf).insereCompra(data, nome_prod, desc_prod, precoProduto);
+	}
+
+	/**
+	 * O metodo ira retornar o valor de debito de um cliente para um fornecedor
+	 * 
+	 * @param cpf recebe o cpf do cliente
+	 * @return valor de debito do cliente para o fornecedor
+	 */
+	public String pegaValorDaConta(String cpf) {
+		return this.contasClientes.get(cpf).getDebito();
+	}
+
+	/**
+	 * O metodo verifica se um cliente possui conta com um fornecedor
+	 * 
+	 * @param cpf recebe o cpf de um cliente
+	 * @return Caso o cliente possua conta com o fornecedor, sera retornado true.
+	 *         Caso contrario, sera retornado false.
+	 */
+	public boolean verificaSeTemConta(String cpf) {
+		return this.contasClientes.containsKey(cpf);
+	}
+
+	/**
+	 * O metodo exibe a conta de um cliente para um determinado fornecedor
+	 * 
+	 * @param cpf recebe o cpf de um cliente
+	 * @return conta de um cliente para um determinado fornecedor, no formato FFFF |
+	 *         NNNNN - DD-DD-DDDD. Onde 'F' representa o nome do fornecedor, 'N'
+	 *         representa o nome do produto e 'D' a data da compra do produto
+	 */
+	public String exibeContas(String cpf) {
+		return this.nome + " | " + this.contasClientes.get(cpf).reuneProdutos();
+	}
+
+	/**
+	 * O metodo realiza o pagamento da conta de um cliente para um determinado
+	 * fornecedor removendo do mapa de contas o cliente.
+	 * 
+	 * @param cpf recebe o cpf de um cliente
+	 */
+	public void realizaPagamento(String cpf) {
+		this.contasClientes.remove(cpf);
+	}
+
 	/**
 	 * Retorna a String que representa um fornecedor no sistema. No formato NNNN -
 	 * EEEE - TTTT, onde 'N' representa o nome do fornecedor, 'E' representa o email
@@ -297,6 +381,12 @@ public class Fornecedor implements Comparable<Fornecedor> {
 		return true;
 	}
 
+	/**
+	 * O metodo compara se o nome de um fornecedor eh maior do que outro
+	 * alfabeticamente
+	 * 
+	 * @return um numero inteiro
+	 */
 	@Override
 	public int compareTo(Fornecedor o) {
 		return this.nome.compareTo(o.getNome());

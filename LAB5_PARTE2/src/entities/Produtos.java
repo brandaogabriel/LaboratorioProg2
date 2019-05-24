@@ -42,7 +42,12 @@ public class Produtos implements Comparable<Produtos> {
 		this.descricao = descricao;
 		this.preco = preco;
 	}
-	
+
+	/**
+	 * O metodo retorna o nome de um produto
+	 * 
+	 * @return nome do produto
+	 */
 	public String getNome() {
 		return nome;
 	}
@@ -55,11 +60,16 @@ public class Produtos implements Comparable<Produtos> {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
+
+	/**
+	 * O metodo retorna o preco de um produto
+	 * 
+	 * @return preco do produto
+	 */
 	public double getPreco() {
 		return this.preco;
 	}
-		
+
 	/**
 	 * O metodo formata o valor de um produto acrescentano uma cada decimal e
 	 * trocando o '.' (ponto) pela ',' (virgula).
@@ -123,6 +133,11 @@ public class Produtos implements Comparable<Produtos> {
 		return true;
 	}
 
+	/**
+	 * O metodo compara se o nome de um produto eh maior que o outro alfabeticamente
+	 * 
+	 * @return um numero inteiro
+	 */
 	@Override
 	public int compareTo(Produtos o) {
 		return this.nome.compareTo(o.getNome());
