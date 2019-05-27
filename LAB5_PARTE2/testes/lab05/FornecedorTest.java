@@ -109,15 +109,6 @@ class FornecedorTest {
 		assertEquals("7.62",f1.pegaValorDaConta("12345678911"));
 	}
 	
-/**	@Test
-	void testEditaCombo() {
-		f2.cadastraProduto("Marmita", "Marmita sem ovo", 6.23);
-		f2.cadastraProduto("Marmita", "Marmita com carne e frango", 8.50);
-		String[] produtinhos = { "Marmita - Marmita sem ovo", "Marmita - Marmita com carne e frango"};
-		f2.cadastraCombo("Marmitex", "Tudo junto e misturado", 0.55, 14.73, produtinhos);
-		f2.editaCombo("Marmitex", "Tudo junto e misturado", 0.23);
-	}*/
-	
 	@Test
 	void testVerifiaSeTemConta() {
 		assertTrue(f1.verificaSeTemConta("12345678911"));

@@ -40,7 +40,7 @@ public class Conta {
 	 * 
 	 * @return debito total de um cliente
 	 */
-	private double calculaDebito() {
+	public double calculaDebito() {
 		double debito = 0;
 		for (Compra c : this.compras) {
 			debito += c.getPreco();
