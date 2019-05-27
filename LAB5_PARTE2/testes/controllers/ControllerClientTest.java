@@ -28,8 +28,8 @@ class ControllerClientTest {
 	@Test
 	void testExibeTodosClientes() {
 		this.c1.cadastraCliente("90908765432", "Carlos", "carlos@fm", "ufcg");
-		assertEquals("Gabriel - embedded - gabriel@ccc | Carlos - ufcg - carlos@fm | ", c1.exibeTodos());
-		assertEquals("Junior - splab - juinim@ccc | ", c2.exibeTodos());
+		assertEquals("Carlos - ufcg - carlos@fm | Gabriel - embedded - gabriel@ccc", c1.exibeTodos());
+		assertEquals("Junior - splab - juinim@ccc", c2.exibeTodos());
 	}
 
 	@Test

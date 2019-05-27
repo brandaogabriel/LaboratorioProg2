@@ -17,6 +17,7 @@ class ControllerProdutoTest {
 		this.p1 = new ControllerProdutos(this.f1.getfornecedores());
 		f1.cadastraFornecedor("Gabriel", "gabriel@ccc.ufcg.edu.br", "4002-8922");
 		p1.cadastraProduto("Gabriel", "Leite", "Leite com pera", 10.50);
+		p1.cadastraProduto("Gabriel", "Suco", "Suco de uva", 3.50);
 	}
 	
 	@Test
@@ -31,14 +32,14 @@ class ControllerProdutoTest {
 	
 	@Test
 	void testExibeProdutosUmFornecedor() {
-		assertEquals("Gabriel - Leite - Leite com pera - R$10,50 | ", p1.exibeProdutosUmFornecedor("Gabriel"));
+		assertEquals("Gabriel - Leite - Leite com pera - R$10,50 | Gabriel - Suco - Suco de uva - R$3,50", p1.exibeProdutosUmFornecedor("Gabriel"));
 	}
 	
 	@Test
 	void testExibeProdutosFornecedores() {
 		f1.cadastraFornecedor("Marcinho", "marcinho@dapenha", "6666-7777");
 		p1.cadastraProduto("Marcinho", "Maconha", "Maconha com reefil", 55.10);
-		assertEquals("Gabriel - Leite - Leite com pera - R$10,50 | Marcinho - Maconha - Maconha com reefil - R$55,10 | ", p1.exibeProdutosFornecedores());
+		assertEquals("Gabriel - Leite - Leite com pera - R$10,50 | Gabriel - Suco - Suco de uva - R$3,50 | Marcinho - Maconha - Maconha com reefil - R$55,10", p1.exibeProdutosFornecedores());
 	}
 	
 	@Test
@@ -51,6 +52,13 @@ class ControllerProdutoTest {
 	void testRemoveProduto() {
 		assertEquals("Produto removido com sucesso", p1.removeProduto("Leite", "Leite com pera", "Gabriel"));
 	}
+	
+	@Test
+	void testAdicionaComboEEditaCombo() {
+		p1.adicionaCombo("Gabriel", "Suco e leite", "Suco de uva com leite", 0.23, "Leite - Leite com pera, Suco - Suco de uva");
+		p1.editaCombo("Suco e leite", "Suco de uva com leite", "Gabriel", 0.43);
+	}
+	
 	
 	@Test
 	void testEntradasVazias() {
@@ -108,6 +116,16 @@ class ControllerProdutoTest {
 			p1.exibeProduto("Leite", "Leite sem pera", "");
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", iae.getMessage());
+		}
+		try {
+			p1.exibeProdutosUmFornecedor("");
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", iae.getMessage());
+		}
+		try {
+			p1.exibeProdutosUmFornecedor("Max Brandon");
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro na exibicao de produto: fornecedor nao existe.", iae.getMessage());
 		}
 		try {
 			p1.alteraPrecoProduto("Leite", "Leite com pera", "Neymar", 2.21);
@@ -189,6 +207,11 @@ class ControllerProdutoTest {
 		}
 		try {
 			p1.exibeProduto("Leite", "Leite sem pera", null);
+		}catch (IllegalArgumentException iae) {
+			assertEquals("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", iae.getMessage());
+		}
+		try {
+			p1.exibeProdutosUmFornecedor(null);
 		}catch (IllegalArgumentException iae) {
 			assertEquals("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", iae.getMessage());
 		}

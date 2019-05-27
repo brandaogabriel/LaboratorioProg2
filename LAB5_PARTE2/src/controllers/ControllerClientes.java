@@ -35,6 +35,11 @@ public class ControllerClientes {
 		this.valida = new Excecoes();
 	}
 	
+	/**
+	 * O metodo retorna um mapa de clientes
+	 * 
+	 * @return mapa de clientes 
+	 */
 	public HashMap<String, Cliente> getClientes(){
 		return  this.clientes;
 	}
@@ -125,7 +130,7 @@ public class ControllerClientes {
 	 * @param cpf  recebe o cpf do cliente
 	 * @param nome recebe o novo nome para o cliente
 	 */
-	public void alteraDadosNome(String cpf, String nome) {
+	private void alteraDadosNome(String cpf, String nome) {
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setNome(nome);
 		}
@@ -137,7 +142,7 @@ public class ControllerClientes {
 	 * @param cpf   recebe o cpf do cliente
 	 * @param email recebe o novo email para o cliente
 	 */
-	public void alteraDadosEmail(String cpf, String email) {
+	private void alteraDadosEmail(String cpf, String email) {
 		if (this.clientes.containsKey(cpf)) {
 			this.clientes.get(cpf).setEmail(email);
 			;

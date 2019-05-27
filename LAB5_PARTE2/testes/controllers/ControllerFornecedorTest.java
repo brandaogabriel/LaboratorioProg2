@@ -27,8 +27,8 @@ class ControllerFornecedorTest {
 	@Test
 	void testExibeTodosFornecedores() {
 		this.f1.cadastraFornecedor("Junior", "junior@brasil", "1234-5678");
-		assertEquals("Gabriel - gabriel@brasil - 4002-8922 | Junior - junior@brasil - 1234-5678 | ", f1.exibeTodosFornecedores());
-		assertEquals("Marcos - marcos@ambev - 3421-0011 | ", f2.exibeTodosFornecedores());
+		assertEquals("Gabriel - gabriel@brasil - 4002-8922 | Junior - junior@brasil - 1234-5678", f1.exibeTodosFornecedores());
+		assertEquals("Marcos - marcos@ambev - 3421-0011", f2.exibeTodosFornecedores());
 	}
 	
 	
@@ -97,6 +97,11 @@ class ControllerFornecedorTest {
 			f1.removeFornecedor("");
 		} catch(IllegalArgumentException iae) {
 			assertEquals("Erro na remocao do fornecedor: nome do fornecedor nao pode ser vazio.", iae.getMessage());
+		}
+		try {
+			f1.removeFornecedor("Max Weiber");
+		}catch(IllegalArgumentException iae) {
+			assertEquals("Erro na remocao do fornecedor: fornecedor nao existe.", iae.getMessage());
 		}
 	}
 	

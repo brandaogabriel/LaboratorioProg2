@@ -25,7 +25,10 @@ public class ControllerFornecedores {
 	 * fornecedor e o valor eh o objeto Fornecedor
 	 */
 	private LinkedHashMap<String, Fornecedor> fornecedores;
-
+	
+	/**
+	 * Constroi um controlador de fornecedores
+	 */
 	public ControllerFornecedores() {
 		this.fornecedores = new LinkedHashMap<>();
 		this.valida = new Excecoes();
@@ -115,7 +118,7 @@ public class ControllerFornecedores {
 	 * @param nome  recebe o nome do fornecedor
 	 * @param email recebe o novo email do fornecedor
 	 */
-	public void alteraDadosEmailFornecedor(String nome, String email) {
+	private void alteraDadosEmailFornecedor(String nome, String email) {
 		if (this.fornecedores.containsKey(nome)) {
 			this.fornecedores.get(nome).setEmail(email);
 		}
@@ -127,7 +130,7 @@ public class ControllerFornecedores {
 	 * @param nome     recebe o nome do fornecedor
 	 * @param telefone recebe o novo telefone do fornecedor
 	 */
-	public void alteraDadosTelefoneFornecedor(String nome, String telefone) {
+	private void alteraDadosTelefoneFornecedor(String nome, String telefone) {
 		if (this.fornecedores.containsKey(nome)) {
 			this.fornecedores.get(nome).setTelefone(telefone);
 		}

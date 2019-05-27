@@ -281,6 +281,9 @@ public class Excecoes {
 	 *                                  parametro
 	 */
 	public void validaCpf(String cpf, String msg) {
+		if(cpf == null) {
+			throw new IllegalArgumentException(msg);
+		}
 		if (cpf.length() != 11) {
 			throw new IllegalArgumentException(msg);
 		}

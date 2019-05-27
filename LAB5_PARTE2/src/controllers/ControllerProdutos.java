@@ -179,48 +179,80 @@ public class ControllerProdutos {
 		this.fornecedores.get(fornecedor).removeProduto(nome, descricao);
 		return "Produto removido com sucesso";
 	}
-	
+
+	/**
+	 * O metodo adiciona um combo a lista de produtos de um fornecedor. Um combo eh
+	 * composto por dois ou mais produtos simples.
+	 * 
+	 * @param fornecedor recebe o nome do fornecedor
+	 * @param nome       recebe o nome do combo
+	 * @param descricao  recebe a descricao do combo
+	 * @param fator      recebe o fator que sera utilizado para calculo do preco do
+	 *                   combo
+	 * @param produtos   recebe os produtos simples que irao compor o combo
+	 * @throws IllegalArgumentException Caso o fornecedor nao exista ou o combo ja
+	 *                                  exista para aquele fornecedor, entao a
+	 *                                  excessao eh lancada.
+	 */
 	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
 		valida.validaCadastroCombo(fornecedor, nome, descricao, fator, produtos);
 		Fornecedor f = fornecedores.get(fornecedor);
 		double valorDosProdutos = 0.0;
-		if(!(this.fornecedores.containsKey(fornecedor))) {
+		if (!(this.fornecedores.containsKey(fornecedor)))
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
-		}
-		if (this.fornecedores.get(fornecedor).verificaIgual(nome, descricao)) {
+		if (this.fornecedores.get(fornecedor).verificaIgual(nome, descricao))
 			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
-		}	
+
 		String[] listaProdutos = retornaProdutos(fornecedor, produtos);
-		for (int i = 0; i < listaProdutos.length; i ++) {
+		for (int i = 0; i < listaProdutos.length; i++) {
 			valorDosProdutos += f.getProdutos().get(listaProdutos[i]).getPreco();
 		}
 		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, valorDosProdutos, listaProdutos);
 	}
-	
+
+	/**
+	 * O metodo eh responsavel por formatar e seperar os produtos simples que iram
+	 * compor o combo.
+	 * 
+	 * @param fornecedor recebe o nome do fornecedor
+	 * @param produtos   recebe os produtos simples que irao compor o combo
+	 * @return sera retornado um array que representa todos os produtos simples que
+	 *         irao compor um combo
+	 * @throws IllegalArgumentException Caso o produto simples nao exista ou algum
+	 *                                  dos produtos passados como parametro seja um
+	 *                                  combo a excessao eh lancada.
+	 */
 	private String[] retornaProdutos(String fornecedor, String produtos) {
 		String[] arrayprodutos = produtos.split(", ");
 		Fornecedor f = fornecedores.get(fornecedor);
-		for(int i = 0; i < arrayprodutos.length; i++) {
+		for (int i = 0; i < arrayprodutos.length; i++) {
 			arrayprodutos[i] = arrayprodutos[i].replace(" - ", " ");
-			if(!(f.getProdutos().containsKey(arrayprodutos[i]))) {
+			if (!(f.getProdutos().containsKey(arrayprodutos[i])))
 				throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
-			}
-			if(this.fornecedores.get(fornecedor).verificaComboExiste(arrayprodutos[i])) {
-				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
-			}
+			if (this.fornecedores.get(fornecedor).verificaComboExiste(arrayprodutos[i]))
+				throw new IllegalArgumentException(
+						"Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
 		}
-		return arrayprodutos;	
+		return arrayprodutos;
 	}
 
+	/**
+	 * O metodo edita o fator de um combo existe
+	 * 
+	 * @param nome       recebe o nome do combo
+	 * @param descricao  recebe a descricao do combo
+	 * @param fornecedor recebe o nome do fornecedor que possui o combo
+	 * @param novoFator  recebe o novo fator do combo
+	 * @throws IllegalArgumentException Caso o fornecedor nao exista ou o combo nao
+	 *                                  exista, a excessao eh lancada
+	 */
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		valida.validaEditaCombo(nome, descricao, fornecedor, novoFator);
-		if(!(this.fornecedores.containsKey(fornecedor))) {
+		if (!(this.fornecedores.containsKey(fornecedor)))
 			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
-		}
-		if(!this.fornecedores.get(fornecedor).verificaIgual(nome, descricao)) {
+		if (!this.fornecedores.get(fornecedor).verificaIgual(nome, descricao))
 			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
-		}
 		fornecedores.get(fornecedor).editaCombo(nome, descricao, novoFator);
 	}
-		
+
 }
