@@ -65,9 +65,7 @@ public class ContaLaboratorio {
 	 * @return ira retornar verdadeiro caso a memoria tenha atingido o limite e falso caso contrario.
 	 */
 	public boolean atingiuCota() {
-		if (espacoOcupado >= cota) {
-			return true;
-		}else return false;
+		return espacoOcupado >= cota;
 	}
 	
 	/**

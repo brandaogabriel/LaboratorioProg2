@@ -21,7 +21,7 @@ public class Disciplina {
 	 * Um array do tipo double que armazena em cada posição o valor de cada nota.
 	 * Nota1, nota2, nota3 e nota4, respectivamente. 
 	 */
-	private double[] notas = new double[4];
+	private double[] notas;
 	
 	/**
 	 * Soma das notas da disciplina.
@@ -33,6 +33,7 @@ public class Disciplina {
 	 * @param nomeDisciplina recebe o nome no formato String. 
 	 */
 	public Disciplina(String nomeDisciplina) {
+		this.notas = new double[4];
 		this.nomeDisciplina = nomeDisciplina;
 	}
 	
@@ -65,9 +66,8 @@ public class Disciplina {
 		for (int i = 0; i < notas.length; i++) {
 			somaNotas += notas[i];
 		}
-		if (somaNotas / 4 >= 7.0) {
-			return true;
-		}else somaNotas = 0; return false;
+		double media = somaNotas / 4;
+		return media >= 7.0;
 	}
 	
 	/**
