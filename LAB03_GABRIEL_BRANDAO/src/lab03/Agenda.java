@@ -29,12 +29,7 @@ public class Agenda {
 	 * @return Caso a posicao esteja entre 1 e 100 o metodo retornara true, caso nao esteja nesse intervalo retornara false.
 	 */
 	public boolean verificaPosicao(int posicao) {
-		if (posicao < 1 || posicao > 100) {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return posicao > 0 && posicao < 101;
 	}
 	
 	/**
@@ -82,7 +77,7 @@ public class Agenda {
 	 * e 'N' representa o numero do contato. Se a posicao do contato nao existir sera retornado 'POSICAO INVALIDA!'.
 	 */
 	public String exibeContato(int posicao) {
-		if(contatos[posicao - 1]!= null) {
+		if(verificaPosicao(posicao) && contatos[posicao - 1] != null) {
 			return contatos[posicao - 1].toString();
 		}
 		return "POSICAO INVALIDA!" + System.lineSeparator();
@@ -99,7 +94,8 @@ public class Agenda {
 				listaDosContatos += i + 1 + " - " + contatos[i].getNomeCompleto() + 
 						System.lineSeparator();
 			}
-		}return listaDosContatos;
+		}
+		return listaDosContatos;
 	}
 	
 	/**

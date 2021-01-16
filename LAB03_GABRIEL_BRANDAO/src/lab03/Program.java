@@ -14,13 +14,12 @@ public class Program {
 		System.out.println("(E)xibir Contato");
 		System.out.println("(S)air" + System.lineSeparator());
 		System.out.print("Opcao> ");
-
 	}
 	
 	private static void cadastraContato() {
 		System.out.print(System.lineSeparator() + "Posicao: ");
 		int posicao = Integer.parseInt(sc.nextLine());
-		if (agenda.verificaPosicao(posicao) == false) {
+		if (!agenda.verificaPosicao(posicao)) {
 			System.out.println("CADASTRO NAO REALIZADO, POSICAO INVALIDA!" + System.lineSeparator());
 		}
 		else {
@@ -56,17 +55,14 @@ public class Program {
 				cadastraContato();
 				menu();
 			}
-		
 			else if (opcao.equals("L")) {
 				listaContato();
 				menu();
 			}
-			
 			else if (opcao.equals("E")) {
 				exibeContato();
 				menu();
 			}
-			
 			else if (opcao.equals("S")) {
 				certificador = 1;
 			}
