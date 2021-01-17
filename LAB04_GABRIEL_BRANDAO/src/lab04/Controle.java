@@ -2,6 +2,8 @@ package lab04;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Representacao de um controle academico de uma determinada
@@ -15,19 +17,19 @@ public class Controle {
 	 * Representacao dos alunos atraves de um mapa. A chave eh a matricula
 	 * e o valor eh o objeto aluno. 
 	 */
-	private HashMap<String, Aluno> alunos;
+	private Map<String, Aluno> alunos;
 	
 	/**
 	 * Representacao dos grupos de estudo atraves de um mapa. A chave eh o nome 
 	 * do grupo e o valor eh o objeto grupo que contem seus respectivos alunos. 
 	 */
-	private HashMap<String, Grupo> grupos;
+	private Map<String, Grupo> grupos;
 	
 	/**
 	 * Representacao atraves de uma lista do tipo String dos alunos que responderam 
 	 * seus professores em sala.
 	 */
-	private ArrayList<String> alunosResponderam; 
+	private List<String> alunosResponderam;
 	
 	/**
 	 * Constroi um controle academico, sem necessidade de parametros.
@@ -39,7 +41,7 @@ public class Controle {
 	}
 	
 	/**
-	 * O metodo ira cadastrar um aluno no controle academico. Porem antes é 
+	 * O metodo ira cadastrar um aluno no controle academico. Porem antes ï¿½ 
 	 * verificado se as entradas sao validas a partir do metodo ValidaEntradaCadastro().
 	 * 
 	 * @param matricula recebe a matricula do aluno.
@@ -51,10 +53,11 @@ public class Controle {
 	public boolean cadastraAluno(String matricula, String nome, String curso) {
 		validaEntradaCadastro(matricula, nome, curso);
 		if (!this.alunos.containsKey(matricula)) {
-			Aluno a = new Aluno(matricula, nome, curso);
-			alunos.put(a.getMatricula(), a);
+			Aluno aluno = new Aluno(matricula, nome, curso);
+			alunos.put(aluno.getMatricula(), aluno);
 			return true;
-		}return false;
+		}
+		return false;
 	}
 
 	/**
@@ -76,8 +79,7 @@ public class Controle {
 	public boolean cadastraGrupo(String nomeGrupo) {
 		validaEntrada(nomeGrupo);
 		if (!verificaNomeGrupo(nomeGrupo)) {
-			Grupo g = new Grupo(nomeGrupo);
-			grupos.put(nomeGrupo, g);
+			grupos.put(nomeGrupo, new Grupo(nomeGrupo));
 			return true;
 		}
 		return false;
@@ -95,17 +97,14 @@ public class Controle {
 	 */
 	public String alocaAluno(String matricula, String nomeGrupo) {
 		validaAlocaAluno(matricula, nomeGrupo);
-		if(!this.alunos.containsKey(matricula)) {
+		if(!this.alunos.containsKey(matricula))
 			return "Aluno nao cadastrado!";
-		}
-		if (!verificaNomeGrupo(nomeGrupo)){
+		if (!verificaNomeGrupo(nomeGrupo))
 			return "Grupo nao cadastrado!";
-		}
 		
-		for (String g : this.grupos.keySet()) {
-			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
-				grupos.get(g).insereAlunoGrupo(exibeAluno(matricula));
-			}
+		for (String grupo : this.grupos.keySet()) {
+			if (grupo.toUpperCase().equals(nomeGrupo.toUpperCase()))
+				grupos.get(grupo).insereAlunoGrupo(exibeAluno(matricula));
 		}
 		return "Aluno alocado!"; 
 	}
@@ -119,17 +118,15 @@ public class Controle {
 	 */
 	public String imprimeGrupo(String nomeGrupo) {
 		validaEntrada(nomeGrupo);
-		if (!verificaNomeGrupo(nomeGrupo)) {
+		if (!verificaNomeGrupo(nomeGrupo))
 			return "Grupo nao cadastrado!" + System.lineSeparator();
-		}
 		
 		String inicio = grupos.get(nomeGrupo).toString();
 		String aluno = "";
-		for (String g : grupos.keySet()) {
-			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
-				aluno += grupos.get(g).getAlunos();
-				}	
-			}	
+		for (String grupo : grupos.keySet()) {
+			if (grupo.toUpperCase().equals(nomeGrupo.toUpperCase()))
+				aluno += grupos.get(grupo).getAlunos();
+		}
 		return inicio + System.lineSeparator() + aluno;
 	}
 	
@@ -139,11 +136,11 @@ public class Controle {
 	 * @return Caso o grupo nao exista, retornara false. Se existir retornara true.
 	 */
 	private boolean verificaNomeGrupo(String nomeGrupo) {
-		for (String g : this.grupos.keySet()) {
-			if (g.toUpperCase().equals(nomeGrupo.toUpperCase())) {
+		for (String grupo : this.grupos.keySet()) {
+			if (grupo.toUpperCase().equals(nomeGrupo.toUpperCase()))
 				return true;
-			}
-		}return false;
+		}
+		return false;
 	}
 	
 	/**
@@ -154,11 +151,11 @@ public class Controle {
 	 */
 	public boolean cadastraAlunoRespondeu(String matricula) {
 		validaEntrada(matricula);
-		boolean result = false;
 		if (this.alunos.containsKey(matricula)) {
 			alunosResponderam.add(matricula);
-			result = true;
-		}return result;
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -169,15 +166,15 @@ public class Controle {
 	 * 'C' representa o curso do aluno. 
 	 */
 	public String exibeAlunosRespondeu() {
-		String entry = "Alunos: " + System.lineSeparator();
+		String cabecalho = "Alunos: " + System.lineSeparator();
 		String quemRespondeu = "";
 		int contador = 1;
 		for (int i = 0; i < alunosResponderam.size(); i ++) {
-			if(this.alunos.containsKey(alunosResponderam.get(i))) {
+			if(this.alunos.containsKey(alunosResponderam.get(i)))
 				quemRespondeu += contador + ". " + exibeAluno(alunosResponderam.get(i)) + System.lineSeparator();
-			}contador +=1;
-		}return entry + quemRespondeu;
-		
+			contador += 1;
+		}
+		return cabecalho + quemRespondeu;
 	}
 	
 	/**
@@ -192,13 +189,11 @@ public class Controle {
 	 * que a entrada eh invalida. 
 	 */
 	private void validaEntradaCadastro(String matricula, String nome, String curso) {
-		if (matricula == null || nome == null || curso == null) {
+		if (matricula == null || nome == null || curso == null)
 			throw new NullPointerException("Entrada nula");
-		}
 		if (matricula == "" || matricula.trim().equals("") || nome == "" || nome.trim().equals("") 
-				|| curso == "" || curso.trim().equals("")) {
+				|| curso == "" || curso.trim().equals(""))
 			throw new IllegalArgumentException("Entrada vazia");
-		}
 	}
 	
 	/**
@@ -207,18 +202,16 @@ public class Controle {
 	 * @param matricula recebe a matricula do aluno.
 	 * @param nomeGrupo recebe o nome de um grupo.
 	 * @throws caso algum dos 2 parametros seja nulo, sera lancada a excecao 'NullPointerException'
-	 * indicando que o valor passado é nulo. 
+	 * indicando que o valor passado ï¿½ nulo. 
 	 * @throws caso algum dos 2 parametros seja uma string vazia ou uma string composta de espacos
 	 * entao sera lancada a excecao 'IllegalArgumentException' indicando que o valor eh invalido.
 	 */
 	private void validaAlocaAluno(String matricula, String nomeGrupo) {
-		if (matricula == null || nomeGrupo == null) {
+		if (matricula == null || nomeGrupo == null)
 			throw new NullPointerException("Entrada nula");
-		}
 		if (matricula == "" || matricula.trim().equals("") || nomeGrupo == "" 
-				|| nomeGrupo.trim().equals("")) {
+				|| nomeGrupo.trim().equals(""))
 			throw new IllegalArgumentException("Entrada vazia");
-		}
 	}
 	
 	/**
@@ -230,12 +223,10 @@ public class Controle {
 	 * sera lancada a excecao 'IllegalArgumentException' indicando que o valor eh vazio. 
 	 */
 	private void validaEntrada(String entrada) {
-		if (entrada == null) {
+		if (entrada == null)
 			throw new NullPointerException("Entrada nula");
-		}
-		if (entrada == "" || entrada.trim().equals("")) {
+		if (entrada == "" || entrada.trim().equals(""))
 			throw new IllegalArgumentException("Entrada vazia");
-		}
 	}
 		
 }

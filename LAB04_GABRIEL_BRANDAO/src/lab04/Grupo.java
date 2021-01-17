@@ -1,6 +1,7 @@
 package lab04;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Representacao de um grupo que possui um nome (identificador) e um conjunto
@@ -17,7 +18,7 @@ public class Grupo {
 	/**
 	 * Lista do tipo aluno que armazenas alunos sem repeticao.
 	 */
-	private HashSet<Aluno> aluno;
+	private Set<Aluno> aluno;
 	
 	/**
 	 * Constroi um grupo a partir de um nome.
@@ -76,7 +77,7 @@ public class Grupo {
 	
 	/**
 	 * Metodo que compara se um objeto eh igual ao outro, retornando true
-	 * ou false. No caso em questao ele ira verificar se o nome de um grupo é igual
+	 * ou false. No caso em questao ele ira verificar se o nome de um grupo ï¿½ igual
 	 * ao nome de outro. Caso seja, retornara true, caso nao, retornara false.
 	 */
 	@Override
